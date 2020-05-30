@@ -1,0 +1,23 @@
+# DelphiDoom Voxel Editor
+ A tool for creating voxels for the DelphiDoom Engine  
+
+## Features
+Multiple Undo/Redo
+
+Copy/ Paste to clipboard
+
+Copy/Paste front, back, left, right, top and down views
+
+Heightmap and terrain texture importing
+
+KVX voxel format importing
+
+slab6 VOX voxel format importing and exporting
+
+Sprite export (8, 16 or 32 angles)
+
+Advanced scripting (PascalScript)
+
+
+## Binaries
+[version 1.6.4 (20200401 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.4/DD_VOXEL_1.6.4_bin.zip/download)
