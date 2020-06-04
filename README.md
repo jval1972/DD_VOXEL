@@ -21,3 +21,10 @@ Advanced scripting (PascalScript)
 
 ## Binaries
 [version 1.6.4 (20200401 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.4/DD_VOXEL_1.6.4_bin.zip/download)
+
+## Screenshots
+
+![Screenshot 1](https://i.postimg.cc/X78cJ2dV/lavarock1.jpg "Screenshot 1")
+
+![Screenshot 2](https://i.postimg.cc/NFRDpBKT/animals.jpg "Screenshot 2")
+
