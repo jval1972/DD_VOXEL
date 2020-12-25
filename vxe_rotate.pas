@@ -47,7 +47,11 @@ procedure RotateBitmap90DegreesClockwise(var ABitmap: TBitmap);
 
 procedure RotateBitmap180Degrees(var ABitmap: TBitmap);
 
- 
+procedure FlipBitmapVertically(var ABitmap: TBitmap);
+
+procedure FlipBitmapHorizontally(var ABitmap: TBitmap);
+
+
 
 implementation
 
@@ -55,7 +59,7 @@ implementation
 
 (*$IFNDEF Win32*)
 
- 
+
 
 type
 
@@ -1807,7 +1811,7 @@ var
 
   RotatedBitmap: TBitmap;
 
- 
+
 
 begin
 
@@ -1829,7 +1833,31 @@ begin
 
 end;
 
- 
+procedure FlipBitmapVertically(var ABitmap: TBitmap);
+var
+  RotatedBitmap: TBitmap;
+begin
+  RotatedBitmap := TBitmap.Create;
+
+  RotatedBitmap.Assign(ABitmap);
+  RotatedBitmap.Canvas.StretchDraw(Rect(0, ABitmap.Height - 1, ABitmap.Width - 1, 0), ABitmap);
+
+  ABitmap.Free;
+  ABitmap := RotatedBitmap;
+end;
+
+procedure FlipBitmapHorizontally(var ABitmap: TBitmap);
+var
+  RotatedBitmap: TBitmap;
+begin
+  RotatedBitmap := TBitmap.Create;
+
+  RotatedBitmap.Assign(ABitmap);
+  RotatedBitmap.Canvas.StretchDraw(Rect(ABitmap.Width - 1, 0, 0, ABitmap.Height - 1), ABitmap);
+
+  ABitmap.Free;
+  ABitmap := RotatedBitmap;
+end;
 
 end.
 

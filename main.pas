@@ -3382,6 +3382,7 @@ begin
     b.Height := fvoxelsize;
     b.PixelFormat := pf32bit;
     b.Canvas.StretchDraw(Rect(0, 0, fvoxelsize, fvoxelsize), p.Graphic);
+    FlipBitmapVertically(b);
 
     if fvoxelsize = 256 then
     begin
@@ -3412,14 +3413,11 @@ begin
     for i := 0 to fvoxelsize - 1 do
       for j := 0 to fvoxelsize - 1 do
       begin
+        c := RGB(hmap[i, j], hmap[i, j], hmap[i, j]);
+          if c = 0 then
+            c := $1;
         for k := 0 to vmap[i, j] do
-        begin
-          c := RGB(hmap[i, j], hmap[i, j], hmap[i, j]);
-          if c <> 0 then
-            fvoxelbuffer[i, fvoxelsize - k - 1, j] := c
-          else
-            fvoxelbuffer[i, fvoxelsize - k - 1, j] := $1;
-        end;
+          fvoxelbuffer[i, fvoxelsize - k - 1, j] := c
       end;
 
     vox_removenonvisiblecells(fvoxelbuffer, fvoxelsize);
@@ -3469,6 +3467,7 @@ begin
       b.Height := fvoxelsize;
       b.PixelFormat := pf32bit;
       b.Canvas.StretchDraw(Rect(0, 0, fvoxelsize, fvoxelsize), p.Graphic);
+      FlipBitmapVertically(b);
       for i := 0 to fvoxelsize - 1 do
         for j := 0 to fvoxelsize - 1 do
           for k := 0 to fvoxelsize - 1 do
