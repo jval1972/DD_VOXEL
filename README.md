@@ -19,7 +19,9 @@ Sprite export (8, 16 or 32 angles)
 Advanced scripting (PascalScript)
 
 
-## Binaries
+## Downloads
+[version 1.6.5 (20201225 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.5/DD_VOXEL_1.6.5_bin.zip/download)
+
 [version 1.6.4 (20200401 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.4/DD_VOXEL_1.6.4_bin.zip/download)
 
 ## Screenshots
