@@ -182,6 +182,8 @@ const
 
 procedure TEditorForm.FormCreate(Sender: TObject);
 begin
+  DoubleBuffered := True;
+
   Scaled := False;
   changed := False;
 
