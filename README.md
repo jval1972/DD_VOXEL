@@ -20,6 +20,8 @@ Advanced scripting (PascalScript)
 
 
 ## Downloads
+[version 1.6.6 (20201226 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.6/DD_VOXEL_1.6.6_bin.zip/download)
+
 [version 1.6.5 (20201225 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.5/DD_VOXEL_1.6.5_bin.zip/download)
 
 [version 1.6.4 (20200401 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.4/DD_VOXEL_1.6.4_bin.zip/download)
