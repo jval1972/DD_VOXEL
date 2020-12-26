@@ -546,9 +546,13 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   pfd: TPIXELFORMATDESCRIPTOR;
   pf: Integer;
+  i: integer;
 begin
   MT_Init;
   DoubleBuffered := True;
+  for i := 0 to ComponentCount - 1 do
+    if Components[i].InheritsFrom(TWinControl) then
+      (Components[i] as TWinControl).DoubleBuffered := True;
 
   vox_initthreads;
   vox_initbuffers;
