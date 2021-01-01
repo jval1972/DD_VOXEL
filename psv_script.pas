@@ -35,7 +35,8 @@ uses
   SysUtils,
   Classes;
 
-function VDL_CompileScript(const Script: string; const doRun: boolean): boolean;
+function VDL_CompileScript(const Script: string; const doCompile, doRun: boolean;
+  var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
 
 implementation
 
@@ -150,36 +151,39 @@ begin
   Result := True;
 end;
 
-function VDL_CompileScript(const Script: string; const doRun: boolean): boolean;
+function VDL_CompileScript(const Script: string; const doCompile, doRun: boolean;
+  var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
 var
   i: integer;
   Compiler: TPSPascalCompiler;
   importer: TPSRuntimeClassImporter;
   Exec: TPSExec;
-  {$IFDEF UNICODE}Data: AnsiString;{$ELSE}Data: string;{$ENDIF}
 begin
   VDL_InitProcList;
 
-  Compiler := TPSPascalCompiler.Create; // create an instance of the compiler.
-  Compiler.OnExportCheck := MyExportCheck;
-  Compiler.OnUses := ScriptOnUses; // assign the OnUses event.
-  Compiler.OnExternalProc := DllExternalProc;
-
-  if not Compiler.Compile(Script) then  // Compile the Pascal script into bytecode.
+  if doCompile then
   begin
-    for i := 0 to Compiler.MsgCount - 1 do
-      printf(Format('Pos: %.*d, "%s"', [6,  compiler.Msg[i].Pos, compiler.Msg[i].MessageToString]));
+    Compiler := TPSPascalCompiler.Create; // create an instance of the compiler.
+    Compiler.OnExportCheck := MyExportCheck;
+    Compiler.OnUses := ScriptOnUses; // assign the OnUses event.
+    Compiler.OnExternalProc := DllExternalProc;
 
-    Compiler.Free;
-    VDL_ShutDownProcList;
-    Result := False;
-    Exit;
+    if not Compiler.Compile(Script) then  // Compile the Pascal script into bytecode.
+    begin
+      for i := 0 to Compiler.MsgCount - 1 do
+        printf(Format('Pos: %.*d, "%s"', [6,  compiler.Msg[i].Pos, compiler.Msg[i].MessageToString]));
+
+      Compiler.Free;
+      VDL_ShutDownProcList;
+      Result := False;
+      Exit;
+    end;
+
+    Compiler.GetOutput(Data); // Save the output of the compiler in the string Data.
+    Compiler.Free; // After compiling the script, there is no need for the compiler anymore.
+
+    printf('Compile successful'#13#10);
   end;
-
-  Compiler.GetOutput(Data); // Save the output of the compiler in the string Data.
-  Compiler.Free; // After compiling the script, there is no need for the compiler anymore.
-
-  printf('Compile successful'#13#10);
 
   if doRun then
   begin

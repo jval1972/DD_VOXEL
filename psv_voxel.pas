@@ -71,8 +71,10 @@ type
     constructor Create(const abuf: voxelbuffer_p; const asz: integer); virtual;
     destructor Destroy; override;
     procedure Clear;
-    function LoadFromScript(const aScript: string; const doRun: boolean): boolean;
-    function AppendFromScript(const aScript: string; const doRun: boolean): boolean;
+    function LoadFromScript(const aScript: string; const doCompile, doRun: boolean;
+      var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
+    function AppendFromScript(const aScript: string; const doCompile, doRun: boolean;
+      var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
     function LoadFromStream(const aStream: TStream): boolean;
     function AppendFromStream(const aStream: TStream): boolean;
     function LoadFromFile(const aFileName: string): boolean;
@@ -154,13 +156,15 @@ begin
   fRealNumCmds := 0;
 end;
 
-function TDDVoxelScriptLoader.LoadFromScript(const aScript: string; const doRun: boolean): boolean;
+function TDDVoxelScriptLoader.LoadFromScript(const aScript: string; const doCompile, doRun: boolean;
+  var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
 begin
   Clear;
-  Result := AppendFromScript(aScript, doRun);
+  Result := AppendFromScript(aScript, doCompile, doRun, Data);
 end;
 
-function TDDVoxelScriptLoader.AppendFromScript(const aScript: string; const doRun: boolean): boolean;
+function TDDVoxelScriptLoader.AppendFromScript(const aScript: string; const doCompile, doRun: boolean;
+  var Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF}): boolean;
 begin
   currentvoxelloader := Self;
   VXT_ResetTextures;
@@ -170,7 +174,7 @@ begin
   VXT_AddSearchPath(ExtractFilePath(Form1.FileName));
   VXT_AddSearchPath(ExtractFilePath(ParamStr(0)));
   VXT_AddSearchPath(GetCurrentDir);
-  Result := VDL_CompileScript(aScript, doRun);
+  Result := VDL_CompileScript(aScript, doCompile, doRun, Data);
   VXT_ResetTextures;
   VXT_ResetVoxels;
   VXT_ClearSearchPaths;
