@@ -184,7 +184,7 @@ begin
 
     printf('Compile successful'#13#10);
   end
-  else  // JVAL: SOS --> HAVE TO RUNTIME REGISER THE IMPORTED FUNCTIONS!!! Thus why we compile a stub script
+  else  // JVAL: SOS --> HAVE TO RUNTIME REGISTER THE IMPORTED FUNCTIONS!!! Thus why we compile a stub script
   begin
     Compiler := TPSPascalCompiler.Create; // create an instance of the compiler.
     Compiler.OnExportCheck := MyExportCheck;

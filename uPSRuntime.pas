@@ -663,7 +663,7 @@ type
     ExEx: TPSError;
 
     ExParam: tbtstring;
-
+    FAllowNullClasses: Boolean;
     function InvokeExternalMethod(At: TPSTypeRec_ProcPtr; Slf, Ptr: Pointer): Boolean;
 
     function InnerfuseCall(_Self, Address: Pointer; CallingConv: TPSCallingConvention; Params: TPSList; res: PPSVariantIFC): Boolean;
@@ -791,6 +791,7 @@ type
     property OnException: TPSOnException read FOnException write FOnException;
     property OnGetNVariant: TPSOnGetNVariant read FOnGetNVariant write FOnGetNVariant;
     property OnSetNVariant: TPSOnSetNVariant read FOnSetNVariant write FOnSetNVariant;
+    property AllowNullClasses: Boolean read FAllowNullClasses write FAllowNullClasses;
   end;
 
   TPSStack = class(TPSList)
@@ -2092,6 +2093,7 @@ begin
   FVariantArrayType.CalcSize;
   TPSTypeRec_Array(FVariantArrayType).ArrayType := FVariantType;
   FStack := TPSStack.Create;
+  FAllowNullClasses := False;
 end;
 
 destructor TPSExec.Destroy;
@@ -10745,9 +10747,12 @@ begin
     FSelf := pointer(n.Dta^);
     if FSelf = nil then
     begin
-      Caller.CMD_Err(erCouldNotCallProc);
-      Result := False;
-      exit;
+      if not Caller.AllowNullClasses then
+      begin
+        Caller.CMD_Err(erCouldNotCallProc);
+        Result := False;
+        Exit;
+      end;
     end;
     Params := TPSList.Create;
     Params.Add(NewPPSVariantIFC(Stack[Longint(Stack.Count) - 1], True));
@@ -10771,9 +10776,12 @@ begin
     FSelf := pointer(n.Dta^);
     if FSelf = nil then
     begin
-      Caller.CMD_Err(erCouldNotCallProc);
-      Result := False;
-      exit;
+      if not Caller.AllowNullClasses then
+      begin
+        Caller.CMD_Err(erCouldNotCallProc);
+        Result := False;
+        exit;
+      end;
     end;
     Params := TPSList.Create;
     Params.Add(NewPPSVariantIFC(Stack[Longint(Stack.Count) - ParamCount - 2], False));
