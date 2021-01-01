@@ -4939,4 +4939,10 @@ object Form1: TForm1
       OnClick = PaletteGreyScaleClick
     end
   end
+  object ShortCutTimer: TTimer
+    Interval = 200
+    OnTimer = ShortCutTimerTimer
+    Left = 465
+    Top = 128
+  end
 end

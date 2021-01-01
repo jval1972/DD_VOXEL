@@ -290,6 +290,7 @@ type
     Decreaselevel1: TMenuItem;
     PaletteRadix1: TMenuItem;
     PaletteRadix2: TMenuItem;
+    ShortCutTimer: TTimer;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure NewButton1Click(Sender: TObject);
@@ -412,6 +413,7 @@ type
     procedure Increaselevel1Click(Sender: TObject);
     procedure Decreaselevel1Click(Sender: TObject);
     procedure View1Click(Sender: TObject);
+    procedure ShortCutTimerTimer(Sender: TObject);
   private
     { Private declarations }
     spritefilename: string;
@@ -483,6 +485,7 @@ type
     function CreatePaletteBitmap(const pal: TPaletteArray): TBitmap;
     procedure UpdatePaletteBitmap(const pal: TPaletteArray);
     procedure SetDefaultPalette(const palname: string);
+    procedure EnableMovePlaneShortCuts(const en: boolean);
   public
     { Public declarations }
     procedure SaveUndoEditor;
@@ -560,7 +563,7 @@ begin
   thetarotatey := 0;
   spritefilename := '';
 
-  filemenuhistory := TFileMenuHistory.Create(self);
+  filemenuhistory := TFileMenuHistory.Create(Self);
   filemenuhistory.MenuItem0 := FileMenuHistoryItem0;
   filemenuhistory.MenuItem1 := FileMenuHistoryItem1;
   filemenuhistory.MenuItem2 := FileMenuHistoryItem2;
@@ -695,7 +698,7 @@ begin
     end;
     if ret = Ord(mrYes) then
     begin
-      SaveButton1Click(self);
+      SaveButton1Click(Self);
       Result := not fchanged;
       Exit;
     end;
@@ -2585,6 +2588,8 @@ end;
 procedure TForm1.ApplicationEvents1Message(var Msg: tagMSG;
   var Handled: Boolean);
 begin
+  if Screen.ActiveForm <> Self then
+    Exit;
   if Msg.message = WM_KEYDOWN then
   begin
     case Msg.wParam of
@@ -3167,7 +3172,7 @@ procedure TForm1.Options1Click(Sender: TObject);
 var
   frm: TOptionsForm;
 begin
-  frm := TOptionsForm.Create(self);
+  frm := TOptionsForm.Create(Self);
   try
     frm.ShowModal;
     if frm.ModalResult = mrOK then
@@ -4909,6 +4914,7 @@ end;
 procedure TForm1.ShowScriptButton1Click(Sender: TObject);
 begin
   EditorForm.Visible := not EditorForm.Visible;
+  EnableMovePlaneShortCuts(not EditorForm.Visible);
   ShowScriptButton1.Down := EditorForm.Visible;
 end;
 
@@ -5543,6 +5549,8 @@ var
   idx: integer;
   s: string;
 begin
+  EnableMovePlaneShortCuts(True);
+  
   Increaselevel1.Enabled := voxelview = vv_none;
   Decreaselevel1.Enabled := voxelview = vv_none;
 
@@ -5563,6 +5571,42 @@ begin
   Yaxis1.Checked := (voxelview = vv_none) and (Pos('y', s) = 1);
   Zaxis1.Checked := (voxelview = vv_none) and (Pos('z', s) = 1);
 
+end;
+
+procedure TForm1.EnableMovePlaneShortCuts(const en: boolean);
+begin
+  if en then
+  begin
+    Form1.Front1.ShortCut := Ord('F');
+    Form1.Back1.ShortCut := Ord('B');
+    Form1.Left1.ShortCut := Ord('L');
+    Form1.Right1.ShortCut := Ord('R');
+    Form1.Top1.ShortCut := Ord('T');
+    Form1.Down1.ShortCut := Ord('D');
+    Form1.Xaxis1.ShortCut := Ord('X');
+    Form1.Yaxis1.ShortCut := Ord('Y');
+    Form1.Zaxis1.ShortCut := Ord('Z');
+  end
+  else
+  begin
+    Form1.Front1.ShortCut := 0;
+    Form1.Back1.ShortCut := 0;
+    Form1.Left1.ShortCut := 0;
+    Form1.Right1.ShortCut := 0;
+    Form1.Top1.ShortCut := 0;
+    Form1.Down1.ShortCut := 0;
+    Form1.Xaxis1.ShortCut := 0;
+    Form1.Yaxis1.ShortCut := 0;
+    Form1.Zaxis1.ShortCut := 0;
+  end;
+end;
+
+procedure TForm1.ShortCutTimerTimer(Sender: TObject);
+begin
+  if Screen.ActiveForm = Self then
+    EnableMovePlaneShortCuts(True)
+  else
+    EnableMovePlaneShortCuts(False);
 end;
 
 end.
