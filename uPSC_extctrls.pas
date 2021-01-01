@@ -3,13 +3,14 @@ unit uPSC_extctrls;
 
 {$I PascalScript.inc}
 interface
+
 uses
   uPSCompiler, uPSUtils;
 
 (*
    Will register files from:
      ExtCtrls
- 
+
 Requires:
   STD, classes, controls, graphics {$IFNDEF PS_MINIVCL}, stdctrls {$ENDIF}
 *)
@@ -34,6 +35,7 @@ procedure SIRegisterTRADIOGROUP(Cl: TPSPascalCompiler);
 procedure SIRegister_ExtCtrls(cl: TPSPascalCompiler);
 
 implementation
+
 procedure SIRegisterTSHAPE(Cl: TPSPascalCompiler);
 begin
   with Cl.AddClassN(cl.FindClass('TGraphicControl'), 'TShape') do
@@ -200,6 +202,7 @@ begin
     {$ENDIF}
   end;
 end;
+
 {$IFNDEF CLX}
 procedure SIRegisterTPAGE(Cl: TPSPascalCompiler);
 begin
@@ -208,6 +211,7 @@ begin
     RegisterProperty('Caption', 'string', iptrw);
   end;
 end;
+
 procedure SIRegisterTNOTEBOOK(Cl: TPSPascalCompiler);
 begin
   with Cl.AddClassN(cl.FindClass('TCustomControl'), 'TNotebook') do
@@ -268,6 +272,7 @@ begin
     {$ENDIF}
   end;
 end;
+
 {$ENDIF}
 
 procedure SIRegisterTCUSTOMRADIOGROUP(Cl: TPSPascalCompiler);
@@ -311,9 +316,11 @@ end;
 
 procedure SIRegister_ExtCtrls_TypesAndConsts(cl: TPSPascalCompiler);
 begin
-  cl.AddTypeS('TShapeType', '(stRectangle, stSquare, stRoundRect, stRoundSquare, stEllipse, stCircle)');
+  cl.AddTypeS('TShapeType',
+    '(stRectangle, stSquare, stRoundRect, stRoundSquare, stEllipse, stCircle)');
   cl.AddTypeS('TBevelStyle', '(bsLowered, bsRaised)');
-  cl.AddTypeS('TBevelShape', '(bsBox, bsFrame, bsTopLine, bsBottomLine, bsLeftLine, bsRightLine,bsSpacer)');
+  cl.AddTypeS('TBevelShape',
+    '(bsBox, bsFrame, bsTopLine, bsBottomLine, bsLeftLine, bsRightLine,bsSpacer)');
   cl.AddTypeS('TPanelBevel', '(bvNone, bvLowered, bvRaised,bvSpace)');
   cl.AddTypeS('TBevelWidth', 'LongInt');
   cl.AddTypeS('TBorderWidth', 'LongInt');
@@ -347,8 +354,3 @@ begin
 end;
 
 end.
-
-
-
-
-

@@ -1,8 +1,10 @@
 { Compiletime Forms support }
 unit uPSC_forms;
+
 {$I PascalScript.inc}
 
 interface
+
 uses
   uPSCompiler, uPSUtils;
 
@@ -88,7 +90,7 @@ end;
 
 procedure SIRegisterTFORM(Cl: TPSPascalCompiler);
 begin
- with Cl.AddClassN(cl.FindClass('TScrollingWinControl'), 'TForm') do
+  with Cl.AddClassN(cl.FindClass('TScrollingWinControl'), 'TForm') do
   begin
     {$IFDEF DELPHI4UP}
     RegisterMethod('constructor CreateNew(AOwner: TComponent; Dummy: Integer)');
@@ -134,7 +136,7 @@ begin
     {$IFNDEF PS_MINIVCL}
     {$IFNDEF CLX}
     RegisterMethod('procedure ArrangeIcons');
-//    RegisterMethod('function GetFormImage: TBitmap');
+    //    RegisterMethod('function GetFormImage: TBitmap');
     RegisterMethod('procedure Print');
     RegisterMethod('procedure SendCancelMode(Sender: TControl)');
     RegisterProperty('ActiveOleControl', 'TWinControl', iptrw);
@@ -219,20 +221,20 @@ begin
     RegisterMethod('procedure HandleException(Sender: TObject)');
     RegisterMethod('procedure HandleMessage');
     RegisterMethod('procedure HideHint');
-//    RegisterMethod('procedure HintMouseMessage(Control: TControl; var Message: TMessage)');
+    //    RegisterMethod('procedure HintMouseMessage(Control: TControl; var Message: TMessage)');
     RegisterMethod('procedure Initialize');
     RegisterMethod('procedure NormalizeTopMosts');
     RegisterMethod('procedure RestoreTopMosts');
     RegisterMethod('procedure Run');
-//    RegisterMethod('procedure ShowException(E: Exception)');
+    //    RegisterMethod('procedure ShowException(E: Exception)');
     {$IFNDEF CLX}
     RegisterMethod('function HelpCommand(Command: Integer; Data: LongInt): Boolean');
     RegisterMethod('function HelpContext(Context: THelpContext): Boolean');
     RegisterMethod('function HelpJump(JumpID: NativeString): Boolean');
     RegisterProperty('DialogHandle', 'LongInt', iptrw);
     RegisterMethod('procedure CreateHandle');
-//    RegisterMethod('procedure HookMainWindow(Hook: TWindowHook)');
-//    RegisterMethod('procedure UnhookMainWindow(Hook: TWindowHook)');
+    //    RegisterMethod('procedure HookMainWindow(Hook: TWindowHook)');
+    //    RegisterMethod('procedure UnhookMainWindow(Hook: TWindowHook)');
     {$ENDIF}
     RegisterProperty('HelpFile', 'NativeString', iptrw);
     RegisterProperty('HintColor', 'TColor', iptrw);
@@ -250,16 +252,18 @@ begin
   Cl.AddTypeS('TIdleEvent', 'procedure (Sender: TObject; var Done: Boolean)');
   cl.AddTypeS('TScrollBarKind', '(sbHorizontal, sbVertical)');
   cl.AddTypeS('TScrollBarInc', 'SmallInt');
-  cl.AddTypeS('TFormBorderStyle', '(bsNone, bsSingle, bsSizeable, bsDialog, bsToolWindow, bsSizeToolWin)');
+  cl.AddTypeS('TFormBorderStyle',
+    '(bsNone, bsSingle, bsSizeable, bsDialog, bsToolWindow, bsSizeToolWin)');
   cl.AddTypeS('TBorderStyle', 'TFormBorderStyle');
   cl.AddTypeS('TWindowState', '(wsNormal, wsMinimized, wsMaximized)');
   cl.AddTypeS('TFormStyle', '(fsNormal, fsMDIChild, fsMDIForm, fsStayOnTop)');
-  cl.AddTypeS('TPosition', '(poDesigned, poDefault, poDefaultPosOnly, poDefaultSizeOnly, poScreenCenter, poDesktopCenter, poMainFormCenter, poOwnerFormCenter)');
+  cl.AddTypeS('TPosition',
+    '(poDesigned, poDefault, poDefaultPosOnly, poDefaultSizeOnly, poScreenCenter, poDesktopCenter, poMainFormCenter, poOwnerFormCenter)');
   cl.AddTypeS('TPrintScale', '(poNone, poProportional, poPrintToFit)');
   cl.AddTypeS('TCloseAction', '(caNone, caHide, caFree, caMinimize)');
-  cl.AddTypeS('TCloseEvent' ,'procedure(Sender: TObject; var Action: TCloseAction)');
-  cl.AddTypeS('TCloseQueryEvent' ,'procedure(Sender: TObject; var CanClose: Boolean)');
-  cl.AddTypeS('TBorderIcon' ,'(biSystemMenu, biMinimize, biMaximize, biHelp)');
+  cl.AddTypeS('TCloseEvent', 'procedure(Sender: TObject; var Action: TCloseAction)');
+  cl.AddTypeS('TCloseQueryEvent', 'procedure(Sender: TObject; var CanClose: Boolean)');
+  cl.AddTypeS('TBorderIcon', '(biSystemMenu, biMinimize, biMaximize, biHelp)');
   cl.AddTypeS('TBorderIcons', 'set of TBorderIcon');
   cl.AddTypeS('THelpContext', 'LongInt');
 end;
@@ -277,19 +281,19 @@ begin
   C1.AddConstantN('mrAll', 'integer').Value.ts32 := mrAll;
   C1.AddConstantN('mrNoToAll', 'integer').Value.ts32 := mrNoToAll;
   C1.AddConstantN('mrYesToAll', 'integer').Value.ts32 := mrYesToAll;
-  C1.AddConstantN('IDOK', 'integer').Value.ts32 := IDOK;
+  C1.AddConstantN('IDOK', 'integer').Value.ts32 := idOk;
   C1.AddConstantN('ID_OK', 'integer').Value.ts32 := ID_OK;
-  C1.AddConstantN('IDCANCEL', 'integer').Value.ts32 := IDCANCEL;
+  C1.AddConstantN('IDCANCEL', 'integer').Value.ts32 := idCancel;
   C1.AddConstantN('ID_CANCEL', 'integer').Value.ts32 := ID_CANCEL;
-  C1.AddConstantN('IDABORT', 'integer').Value.ts32 := IDABORT;
+  C1.AddConstantN('IDABORT', 'integer').Value.ts32 := idAbort;
   C1.AddConstantN('ID_ABORT', 'integer').Value.ts32 := ID_ABORT;
-  C1.AddConstantN('IDRETRY', 'integer').Value.ts32 := IDRETRY;
+  C1.AddConstantN('IDRETRY', 'integer').Value.ts32 := idRetry;
   C1.AddConstantN('ID_RETRY', 'integer').Value.ts32 := ID_RETRY;
-  C1.AddConstantN('IDIGNORE', 'integer').Value.ts32 := IDIGNORE;
+  C1.AddConstantN('IDIGNORE', 'integer').Value.ts32 := idIgnore;
   C1.AddConstantN('ID_IGNORE', 'integer').Value.ts32 := ID_IGNORE;
-  C1.AddConstantN('IDYES', 'integer').Value.ts32 := IDYES;
+  C1.AddConstantN('IDYES', 'integer').Value.ts32 := idYes;
   C1.AddConstantN('ID_YES', 'integer').Value.ts32 := ID_YES;
-  C1.AddConstantN('IDNO', 'integer').Value.ts32 := IDNO;
+  C1.AddConstantN('IDNO', 'integer').Value.ts32 := idNo;
   C1.AddConstantN('ID_NO', 'integer').Value.ts32 := ID_NO;
   C1.AddConstantN('IDCLOSE', 'integer').Value.ts32 := IDCLOSE;
   C1.AddConstantN('ID_CLOSE', 'integer').Value.ts32 := ID_CLOSE;
@@ -321,4 +325,3 @@ end;
 
 
 end.
-

@@ -1,24 +1,26 @@
 { Compiletime Controls support }
 unit uPSC_controls;
+
 {$I PascalScript.inc}
 interface
+
 uses
   uPSCompiler, uPSUtils;
 
 {
   Will register files from:
     Controls
- 
+
   Register the STD, Classes (at least the types&consts) and Graphics libraries first
- 
+
 }
 
 procedure SIRegister_Controls_TypesAndConsts(Cl: TPSPascalCompiler);
 
 procedure SIRegisterTControl(Cl: TPSPascalCompiler);
-procedure SIRegisterTWinControl(Cl: TPSPascalCompiler); 
-procedure SIRegisterTGraphicControl(cl: TPSPascalCompiler); 
-procedure SIRegisterTCustomControl(cl: TPSPascalCompiler); 
+procedure SIRegisterTWinControl(Cl: TPSPascalCompiler);
+procedure SIRegisterTGraphicControl(cl: TPSPascalCompiler);
+procedure SIRegisterTCustomControl(cl: TPSPascalCompiler);
 procedure SIRegisterTDragObject(cl: TPSPascalCompiler);
 {$IFDEF DELPHI4UP}
 procedure SIRegisterTSizeConstraints(cl: TPSPascalCompiler);
@@ -117,6 +119,7 @@ begin
     {$ENDIF}
   end;
 end;
+
 procedure SIRegisterTGraphicControl(cl: TPSPascalCompiler); // requires TControl
 begin
   Cl.AddClassN(cl.FindClass('TControl'), 'TGraphicControl');
@@ -130,21 +133,27 @@ end;
 procedure SIRegister_Controls_TypesAndConsts(Cl: TPSPascalCompiler);
 begin
 {$IFNDEF FPC}
-  Cl.addTypeS('TEShiftState','(ssShift, ssAlt, ssCtrl, ssLeft, ssRight, ssMiddle, ssDouble)');
+  Cl.addTypeS('TEShiftState',
+    '(ssShift, ssAlt, ssCtrl, ssLeft, ssRight, ssMiddle, ssDouble)');
   {$ELSE}
-  Cl.addTypeS('TEShiftState','(ssShift, ssAlt, ssCtrl, ssLeft, ssRight, ssMiddle, ssDouble,' +
-  'ssMeta, ssSuper, ssHyper, ssAltGr, ssCaps, ssNum,ssScroll,ssTriple,ssQuad)');
+  Cl.addTypeS('TEShiftState',
+    '(ssShift, ssAlt, ssCtrl, ssLeft, ssRight, ssMiddle, ssDouble,' +
+    'ssMeta, ssSuper, ssHyper, ssAltGr, ssCaps, ssNum,ssScroll,ssTriple,ssQuad)');
   {$ENDIF}
-  Cl.addTypeS('TShiftState','set of TEShiftState');
+  Cl.addTypeS('TShiftState', 'set of TEShiftState');
   cl.AddTypeS('TMouseButton', '(mbLeft, mbRight, mbMiddle)');
   cl.AddTypeS('TDragMode', '(dmManual, dmAutomatic)');
   cl.AddTypeS('TDragState', '(dsDragEnter, dsDragLeave, dsDragMove)');
   cl.AddTypeS('TDragKind', '(dkDrag, dkDock)');
-  cl.AddTypeS('TMouseEvent', 'procedure (Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);');
-  cl.AddTypeS('TMouseMoveEvent', 'procedure(Sender: TObject; Shift: TShiftState; X, Y: Integer);');
-  cl.AddTypeS('TKeyEvent', 'procedure (Sender: TObject; var Key: Word; Shift: TShiftState);');
+  cl.AddTypeS('TMouseEvent',
+    'procedure (Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);');
+  cl.AddTypeS('TMouseMoveEvent',
+    'procedure(Sender: TObject; Shift: TShiftState; X, Y: Integer);');
+  cl.AddTypeS('TKeyEvent',
+    'procedure (Sender: TObject; var Key: Word; Shift: TShiftState);');
   cl.AddTypeS('TKeyPressEvent', 'procedure(Sender: TObject; var Key: Char);');
-  cl.AddTypeS('TDragOverEvent', 'procedure(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean)');
+  cl.AddTypeS('TDragOverEvent',
+    'procedure(Sender, Source: TObject; X, Y: Integer; State: TDragState; var Accept: Boolean)');
   cl.AddTypeS('TDragDropEvent', 'procedure(Sender, Source: TObject; X, Y: Integer)');
   cl.AddTypeS('HWND', 'LongInt');
 
@@ -154,7 +163,7 @@ begin
 
   {$IFDEF DELPHI4UP}
   cl.addTypeS('TAnchorKind', '(akLeft, akTop, akRight, akBottom)');
-  cl.addTypeS('TAnchors','set of TAnchorKind');
+  cl.addTypeS('TAnchors', 'set of TAnchorKind');
   {$ENDIF}
   cl.AddTypeS('TModalResult', 'Integer');
   cl.AddTypeS('TCursor', 'Integer');
@@ -204,7 +213,7 @@ end;
 
 procedure SIRegisterTDragObject(cl: TPSPascalCompiler);
 begin
-  with CL.AddClassN(CL.FindClass('TObject'),'TDragObject') do
+  with CL.AddClassN(CL.FindClass('TObject'), 'TDragObject') do
   begin
 {$IFNDEF PS_MINIVCL}
 {$IFDEF DELPHI4UP}
@@ -226,14 +235,15 @@ begin
 {$ENDIF}
 {$ENDIF}
   end;
-  Cl.AddTypeS('TStartDragEvent', 'procedure (Sender: TObject; var DragObject: TDragObject)');
+  Cl.AddTypeS('TStartDragEvent',
+    'procedure (Sender: TObject; var DragObject: TDragObject)');
 end;
 
 {$IFDEF DELPHI4UP}
 procedure SIRegisterTSizeConstraints(cl: TPSPascalCompiler);
 begin
   cl.AddTypeS('TConstraintSize', 'Integer');
-  with CL.AddClassN(CL.FindClass('TPersistent'),'TSizeConstraints') do
+  with CL.AddClassN(CL.FindClass('TPersistent'), 'TSizeConstraints') do
   begin
     RegisterProperty('MaxHeight', 'TConstraintSize', iptrw);
     RegisterProperty('MaxWidth', 'TConstraintSize', iptrw);
@@ -241,6 +251,7 @@ begin
     RegisterProperty('MinWidth', 'TConstraintSize', iptrw);
   end;
 end;
+
 {$ENDIF}
 
 procedure SIRegister_Controls(Cl: TPSPascalCompiler);
