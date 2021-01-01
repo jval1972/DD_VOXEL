@@ -111,7 +111,31 @@ uses
   vxe_quantize in 'vxe_quantize.pas',
   vxe_palette in 'vxe_palette.pas',
   frm_selectpalette in 'frm_selectpalette.pas' {SelectPaletteForm},
-  ddvox2vox in 'ddvox2vox.pas';
+  ddvox2vox in 'ddvox2vox.pas',
+  uPSC_buttons in 'uPSC_buttons.pas',
+  uPSC_classes in 'uPSC_classes.pas',
+  uPSC_comobj in 'uPSC_comobj.pas',
+  uPSC_controls in 'uPSC_controls.pas',
+  uPSC_dateutils in 'uPSC_dateutils.pas',
+  uPSC_DB in 'uPSC_DB.pas',
+  uPSC_extctrls in 'uPSC_extctrls.pas',
+  uPSC_forms in 'uPSC_forms.pas',
+  uPSC_graphics in 'uPSC_graphics.pas',
+  uPSC_menus in 'uPSC_menus.pas',
+  uPSC_std in 'uPSC_std.pas',
+  uPSC_stdctrls in 'uPSC_stdctrls.pas',
+  uPSR_buttons in 'uPSR_buttons.pas',
+  uPSR_classes in 'uPSR_classes.pas',
+  uPSR_comobj in 'uPSR_comobj.pas',
+  uPSR_controls in 'uPSR_controls.pas',
+  uPSR_dateutils in 'uPSR_dateutils.pas',
+  uPSR_DB in 'uPSR_DB.pas',
+  uPSR_extctrls in 'uPSR_extctrls.pas',
+  uPSR_forms in 'uPSR_forms.pas',
+  uPSR_graphics in 'uPSR_graphics.pas',
+  uPSR_menus in 'uPSR_menus.pas',
+  uPSR_std in 'uPSR_std.pas',
+  uPSR_stdctrls in 'uPSR_stdctrls.pas';
 
 {$R *.res}
 
