@@ -291,6 +291,22 @@ type
     PaletteRadix1: TMenuItem;
     PaletteRadix2: TMenuItem;
     ShortCutTimer: TTimer;
+    RunMacroButton1: TSpeedButton;
+    ToolButton8: TToolButton;
+    OpenMacroDialog: TOpenDialog;
+    Macros1: TMenuItem;
+    RunMacro1: TMenuItem;
+    N23: TMenuItem;
+    MacroMenuHistoryItem0: TMenuItem;
+    MacroMenuHistoryItem1: TMenuItem;
+    MacroMenuHistoryItem2: TMenuItem;
+    MacroMenuHistoryItem3: TMenuItem;
+    MacroMenuHistoryItem4: TMenuItem;
+    MacroMenuHistoryItem5: TMenuItem;
+    MacroMenuHistoryItem6: TMenuItem;
+    MacroMenuHistoryItem7: TMenuItem;
+    MacroMenuHistoryItem8: TMenuItem;
+    MacroMenuHistoryItem9: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure NewButton1Click(Sender: TObject);
@@ -414,6 +430,8 @@ type
     procedure Decreaselevel1Click(Sender: TObject);
     procedure View1Click(Sender: TObject);
     procedure ShortCutTimerTimer(Sender: TObject);
+    procedure RunMacroClick(Sender: TObject);
+    procedure Macros1Click(Sender: TObject);
   private
     { Private declarations }
     spritefilename: string;
@@ -449,6 +467,7 @@ type
     lastglHorzPos, lastglVertPos: integer;
     rendredvoxels: integer;
     filemenuhistory: TFileMenuHistory;
+    macromenuhistory: TFileMenuHistory;
     xlevel, ylevel, zlevel: integer;
     procedure PaintBox1Responder(X, Y: Integer; prt: paintrespondertype_t);
     procedure PaintBox1FreePaint(X, Y: Integer; prt: paintrespondertype_t);
@@ -486,6 +505,9 @@ type
     procedure UpdatePaletteBitmap(const pal: TPaletteArray);
     procedure SetDefaultPalette(const palname: string);
     procedure EnableMovePlaneShortCuts(const en: boolean);
+    procedure DoRunMacro;
+    function RunMacro(const fname: string): boolean;
+    procedure OnLoadMacroMenuHistory(Sender: TObject; const fname: string);
   public
     { Public declarations }
     procedure SaveUndoEditor;
@@ -504,6 +526,7 @@ var
 implementation
 
 uses
+  SynUnicode,
   vxe_gl,
   vxe_system,
   vxe_script,
@@ -526,7 +549,8 @@ uses
   frm_exportsprite,
   frm_selectpalette,
   frm_editor,
-  vxe_quantize;
+  vxe_quantize,
+  psv_voxel;
 
 {$R *.dfm}
 
@@ -576,6 +600,19 @@ begin
   filemenuhistory.MenuItem9 := FileMenuHistoryItem9;
   filemenuhistory.OnOpen := OnLoadVoxelFileMenuHistory;
 
+  macromenuhistory := TFileMenuHistory.Create(Self);
+  macromenuhistory.MenuItem0 := MacroMenuHistoryItem0;
+  macromenuhistory.MenuItem1 := MacroMenuHistoryItem1;
+  macromenuhistory.MenuItem2 := MacroMenuHistoryItem2;
+  macromenuhistory.MenuItem3 := MacroMenuHistoryItem3;
+  macromenuhistory.MenuItem4 := MacroMenuHistoryItem4;
+  macromenuhistory.MenuItem5 := MacroMenuHistoryItem5;
+  macromenuhistory.MenuItem6 := MacroMenuHistoryItem6;
+  macromenuhistory.MenuItem7 := MacroMenuHistoryItem7;
+  macromenuhistory.MenuItem8 := MacroMenuHistoryItem8;
+  macromenuhistory.MenuItem9 := MacroMenuHistoryItem9;
+  macromenuhistory.OnOpen := OnLoadMacroMenuHistory;
+
   Increaselevel1.Caption := Increaselevel1.Caption + #9 + '+';
   Decreaselevel1.Caption := Decreaselevel1.Caption + #9 + '-';
 
@@ -594,6 +631,17 @@ begin
   filemenuhistory.AddPath(bigstringtostring(@opt_filemenuhistory2));
   filemenuhistory.AddPath(bigstringtostring(@opt_filemenuhistory1));
   filemenuhistory.AddPath(bigstringtostring(@opt_filemenuhistory0));
+
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory9));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory8));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory7));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory6));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory5));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory4));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory3));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory2));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory1));
+  macromenuhistory.AddPath(bigstringtostring(@opt_macromenuhistory0));
 
   undoManager := TUndoRedoManager.Create;
   undoManager.OnLoadFromStream := DoLoadVoxelBinaryUndo;
@@ -1286,6 +1334,17 @@ begin
   stringtobigstring(filemenuhistory.PathStringIdx(7), @opt_filemenuhistory7);
   stringtobigstring(filemenuhistory.PathStringIdx(8), @opt_filemenuhistory8);
   stringtobigstring(filemenuhistory.PathStringIdx(9), @opt_filemenuhistory9);
+
+  stringtobigstring(macromenuhistory.PathStringIdx(0), @opt_macromenuhistory0);
+  stringtobigstring(macromenuhistory.PathStringIdx(1), @opt_macromenuhistory1);
+  stringtobigstring(macromenuhistory.PathStringIdx(2), @opt_macromenuhistory2);
+  stringtobigstring(macromenuhistory.PathStringIdx(3), @opt_macromenuhistory3);
+  stringtobigstring(macromenuhistory.PathStringIdx(4), @opt_macromenuhistory4);
+  stringtobigstring(macromenuhistory.PathStringIdx(5), @opt_macromenuhistory5);
+  stringtobigstring(macromenuhistory.PathStringIdx(6), @opt_macromenuhistory6);
+  stringtobigstring(macromenuhistory.PathStringIdx(7), @opt_macromenuhistory7);
+  stringtobigstring(macromenuhistory.PathStringIdx(8), @opt_macromenuhistory8);
+  stringtobigstring(macromenuhistory.PathStringIdx(9), @opt_macromenuhistory9);
 
   vxe_SaveSettingsToFile(ChangeFileExt(ParamStr(0), '.ini'));
   vox_shutdownthreads;
@@ -5607,6 +5666,120 @@ begin
     EnableMovePlaneShortCuts(True)
   else
     EnableMovePlaneShortCuts(False);
+end;
+
+procedure TForm1.RunMacroClick(Sender: TObject);
+begin
+  DoRunMacro;
+end;
+
+procedure TForm1.DoRunMacro;
+begin
+  if OpenMacroDialog.Execute then
+    RunMacro(OpenMacroDialog.FileName);
+end;
+
+function TForm1.RunMacro(const fname: string): boolean;
+var
+  fs: TFileStream;
+  s: string;
+  Data, tmpData: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
+  vdl: TDDVoxelScriptLoader;
+  i: integer;
+  uLines: TUnicodeStringList;
+  b: byte;
+begin
+  if not FileExists(fname) then
+  begin
+    s := Format('File %s does not exist!', [MkShortName(fname)]);
+    ErrorMessage(s);
+    Result := False;
+    Exit;
+  end;
+
+  Screen.Cursor := crHourglass;
+  fs := TFileStream.Create(fname, fmOpenRead or fmShareDenyWrite);
+  try
+    if (fs.Size <= 4) or (fs.Size > 16 * 1024 * 1024) then
+    begin
+      s := Format('Invalid File %s!', [MkShortName(fname)]);
+      ErrorMessage(s);
+      Result := False;
+    end
+    else
+    begin
+      Data := '';
+      for i := 1 to fs.Size do
+      begin
+        fs.Read(b, SizeOf(Byte));
+        data := data + Chr(b);
+      end;
+      if Pos('IFPS', Data) = 1 then // Compiled macro
+      begin
+        vdl := TDDVoxelScriptLoader.Create(fvoxelbuffer, fvoxelsize);
+        Result := vdl.LoadFromScript('', False, True, Data);
+        if Result then
+        begin
+          Form1.SaveUndoEditor;
+          vdl.RenderToBuffer;
+          InfoMessage('Voxel buffer updated successfully');
+          needrecalc := True;
+          fchanged := True;
+          PaintBox1.Invalidate;
+          UpdateDepthBuffer;
+        end
+        else
+        begin
+          s := Format('An error occured while running macro %s!', [MkShortName(fname)]);
+          ErrorMessage(s);
+        end;
+        vdl.Free;
+      end
+      else// if Pos(#0, Data) = 0 then  // Script source
+      begin
+        fs.Position := 0;
+        uLines := TUnicodeStringList.Create;
+        uLines.LoadFromStream(fs);
+        Data := uLines.Text;
+        uLines.Free;
+
+        vdl := TDDVoxelScriptLoader.Create(fvoxelbuffer, fvoxelsize);
+        Result := vdl.LoadFromScript(Data, True, True, tmpData);
+        if Result then
+        begin
+          Form1.SaveUndoEditor;
+          vdl.RenderToBuffer;
+          InfoMessage('Voxel buffer updated successfully');
+          needrecalc := True;
+          fchanged := True;
+          PaintBox1.Invalidate;
+          UpdateDepthBuffer;
+        end
+        else
+        begin
+          s := Format('Can not compile script %s!', [MkShortName(fname)]);
+          ErrorMessage(s);
+        end;
+        vdl.Free;
+      end;
+    end;
+  finally
+    fs.Free;
+  end;
+  Screen.Cursor := crDefault;
+
+  if Result then
+    macromenuhistory.AddPath(fname);
+end;
+
+procedure TForm1.OnLoadMacroMenuHistory(Sender: TObject; const fname: string);
+begin
+  RunMacro(fname);
+end;
+
+procedure TForm1.Macros1Click(Sender: TObject);
+begin
+  macromenuhistory.RefreshMenuItems;
 end;
 
 end.

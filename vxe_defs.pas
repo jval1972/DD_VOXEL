@@ -57,6 +57,16 @@ var
   opt_filemenuhistory7: bigstring_t;
   opt_filemenuhistory8: bigstring_t;
   opt_filemenuhistory9: bigstring_t;
+  opt_macromenuhistory0: bigstring_t;
+  opt_macromenuhistory1: bigstring_t;
+  opt_macromenuhistory2: bigstring_t;
+  opt_macromenuhistory3: bigstring_t;
+  opt_macromenuhistory4: bigstring_t;
+  opt_macromenuhistory5: bigstring_t;
+  opt_macromenuhistory6: bigstring_t;
+  opt_macromenuhistory7: bigstring_t;
+  opt_macromenuhistory8: bigstring_t;
+  opt_macromenuhistory9: bigstring_t;
   spritesavetype: string = 'WAD';
   spritesavepalette: string = 'DOOM';
   spriteangles: integer = 8;
@@ -78,7 +88,7 @@ uses
   SysUtils, Classes;
 
 const
-  NUMSETTINGS = 27;
+  NUMSETTINGS = 38;
 
 type
   TSettingsType = (tstDevider, tstInteger, tstBoolean, tstString, tstBigString);
@@ -170,6 +180,61 @@ var
       desc: 'FILEMENUHISTORY9';
       typeof: tstBigString;
       location: @opt_filemenuhistory9;
+    ),
+    (
+      desc: '[Macro Menu History]';
+      typeof: tstDevider;
+      location: nil;
+    ),
+    (
+      desc: 'MACROMENUHISTORY0';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory0;
+    ),
+    (
+      desc: 'MACROMENUHISTORY1';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory1;
+    ),
+    (
+      desc: 'MACROMENUHISTORY2';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory2;
+    ),
+    (
+      desc: 'MACROMENUHISTORY3';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory3;
+    ),
+    (
+      desc: 'MACROMENUHISTORY4';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory4;
+    ),
+    (
+      desc: 'MACROMENUHISTORY5';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory5;
+    ),
+    (
+      desc: 'MACROMENUHISTORY6';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory6;
+    ),
+    (
+      desc: 'MACROMENUHISTORY7';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory7;
+    ),
+    (
+      desc: 'MACROMENUHISTORY8';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory8;
+    ),
+    (
+      desc: 'MACROMENUHISTORY9';
+      typeof: tstBigString;
+      location: @opt_macromenuhistory9;
     ),
     (
       desc: '[Sprite Export]';
