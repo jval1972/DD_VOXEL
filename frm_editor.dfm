@@ -1215,7 +1215,7 @@ object EditorForm: TEditorForm
     Filter = 
       'Script Files (*.voxscript)|*.voxscript|Text Files (*.txt)|*.txt|' +
       'All Files (*.*)|*.*'
-    Options = [ofHideReadOnly, ofPathMustExist, ofEnableSizing]
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofEnableSizing]
     Left = 73
     Top = 184
   end
@@ -1231,7 +1231,7 @@ object EditorForm: TEditorForm
   object SaveDialog2: TSaveDialog
     DefaultExt = 'voxmacro'
     Filter = 'Macro Files (*.voxmacro)|*.voxmacro|All Files (*.*)|*.*'
-    Options = [ofHideReadOnly, ofPathMustExist, ofEnableSizing]
+    Options = [ofOverwritePrompt, ofHideReadOnly, ofPathMustExist, ofEnableSizing]
     Left = 113
     Top = 184
   end
