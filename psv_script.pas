@@ -66,6 +66,7 @@ uses
   uPSR_std,
   uPSR_stdctrls,
   uPSR_dll,
+  IFSI_Dialogs,
   Forms,
   psv_script_proclist,
   psv_script_functions,
@@ -114,6 +115,7 @@ begin
     SIRegister_Forms(Sender);
     SIRegister_ComObj(Sender);
     SIRegister_Buttons(Sender);
+    SIRegister_Dialogs(Sender);
     RegisterDateTimeLibrary_C(Sender);
     SIRegister_DB(Sender);
     RegisterDll_Compiletime(Sender);
@@ -206,6 +208,7 @@ begin
     RIRegister_Forms(importer);
     RIRegister_Buttons(importer);
     RIRegister_DB(importer);
+    RIRegister_Dialogs(importer);
     RIRegister_ExtCtrls(importer);
     RIRegister_Menus(importer);
 
@@ -213,7 +216,7 @@ begin
 
     RIRegister_ComObj(Exec);
     RegisterDateTimeLibrary_R(Exec);
-    
+
     SetVariantToClass(Exec.GetVarNo(Exec.GetVar('SELF')), Application.MainForm);
     SetVariantToClass(Exec.GetVarNo(Exec.GetVar('APPLICATION')), Application);
 
