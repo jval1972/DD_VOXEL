@@ -20,6 +20,8 @@ Advanced scripting (PascalScript)
 
 
 ## Downloads
+[version 1.7 (20210101 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.7/DD_VOXEL_1.7_bin.zip/download)
+
 [version 1.6.6 (20201226 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.6/DD_VOXEL_1.6.6_bin.zip/download)
 
 [version 1.6.5 (20201225 - win32)](https://sourceforge.net/projects/delphidoom-voxel-editor/files/DD_VOXEL_1.6.5/DD_VOXEL_1.6.5_bin.zip/download)
@@ -31,4 +33,6 @@ Advanced scripting (PascalScript)
 ![Screenshot 1](https://i.postimg.cc/X78cJ2dV/lavarock1.jpg "Screenshot 1")
 
 ![Screenshot 2](https://i.postimg.cc/NFRDpBKT/animals.jpg "Screenshot 2")
+
+![Screenshot 3](https://i.postimg.cc/1XGyrPJv/runmacro.png "Screenshot 3")
 
