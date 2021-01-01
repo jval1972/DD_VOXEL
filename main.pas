@@ -5688,6 +5688,7 @@ var
   i: integer;
   uLines: TUnicodeStringList;
   b: byte;
+  numpx: integer;
 begin
   if not FileExists(fname) then
   begin
@@ -5720,9 +5721,13 @@ begin
         Result := vdl.LoadFromScript('', False, True, Data);
         if Result then
         begin
-          Form1.SaveUndoEditor;
-          vdl.RenderToBuffer;
-          InfoMessage('Voxel buffer updated successfully');
+          if vdl.NumCmds <> 0 then
+            Form1.SaveUndoEditor;
+          numpx := vdl.RenderToBuffer;
+          if numpx > 0 then
+            InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
+          else
+            InfoMessage('Successful run, no voxel items were updated'#13#10);
           needrecalc := True;
           fchanged := True;
           PaintBox1.Invalidate;
@@ -5747,9 +5752,13 @@ begin
         Result := vdl.LoadFromScript(Data, True, True, tmpData);
         if Result then
         begin
-          Form1.SaveUndoEditor;
-          vdl.RenderToBuffer;
-          InfoMessage('Voxel buffer updated successfully');
+          if vdl.NumCmds <> 0 then
+            Form1.SaveUndoEditor;
+          numpx := vdl.RenderToBuffer;
+          if numpx > 0 then
+            InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
+          else
+            InfoMessage('Successful run, no voxel items were updated'#13#10);
           needrecalc := True;
           fchanged := True;
           PaintBox1.Invalidate;

@@ -279,6 +279,7 @@ var
   vdl: TDDVoxelScriptLoader;
   ret: boolean;
   Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
+  numpx: integer;
 begin
   Screen.Cursor := crHourGlass;
   try
@@ -289,9 +290,13 @@ begin
 
     if ret then
     begin
-      Form1.SaveUndoEditor;
-      vdl.RenderToBuffer;
-      printf('Voxel buffer updated successfully'#13#10);
+      if vdl.NumCmds <> 0 then
+        Form1.SaveUndoEditor;
+      numpx := vdl.RenderToBuffer;
+      if numpx > 0 then
+        printf('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
+      else
+        printf('Successful run, no voxel items were updated'#13#10);
       Form1.needrecalc := True;
       Form1.VoxelChanged := True;
       Form1.PaintBox1.Invalidate;

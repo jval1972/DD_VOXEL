@@ -81,8 +81,9 @@ type
     function AppendFromFile(const aFileName: string): boolean;
     procedure SaveToStream(const aStream: TStream);
     procedure SaveToFile(const aFileName: string);
-    procedure RenderToBuffer;
+    function RenderToBuffer: integer;
     function VoxelItemAt(const x, y, z: byte): LongWord;
+    property NumCmds: integer read fNumCmds;
   end;
 
 procedure VDLS_SetVoxel(const x, y, z: byte; const value: LongWord);
@@ -258,11 +259,12 @@ begin
   end;
 end;
 
-procedure TDDVoxelScriptLoader.RenderToBuffer;
+function TDDVoxelScriptLoader.RenderToBuffer: integer;
 var
   cnt, i, j, k: integer;
   pc: voxelcmd_p;
 begin
+  Result := 0;
   for cnt := 0 to fNumCmds - 1 do
   begin
     pc := @fCmds[cnt];
@@ -272,12 +274,20 @@ begin
         if pc.x < voxelsz then
           if pc.y < voxelsz then
             if pc.z < voxelsz then
-              voxelbuf[pc.x, pc.y, pc.z] := pc.Color;
+              if voxelbuf[pc.x, pc.y, pc.z] <> pc.Color then
+              begin
+                voxelbuf[pc.x, pc.y, pc.z] := pc.Color;
+                Inc(Result);
+              end;
       C_vxClear:
         for i := 0 to voxelsz - 1 do
           for j := 0 to voxelsz - 1 do
             for k := 0 to voxelsz - 1 do
-              voxelbuf[i, j, k] := pc.Color;
+              if voxelbuf[i, j, k] <> pc.Color then
+              begin
+                voxelbuf[i, j, k] := pc.Color;
+                Inc(Result);
+              end;
     end;
   end;
 end;
