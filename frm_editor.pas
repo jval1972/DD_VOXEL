@@ -651,6 +651,7 @@ var
   ret: boolean;
   Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
   fs: TFileStream;
+  i: integer;
 begin
   if SaveDialog2.Execute then
   begin
@@ -667,12 +668,13 @@ begin
         BackupFile(ffilename);
         fs := TFileStream.Create(SaveDialog2.FileName, fmCreate);
         try
-          fs.Write(Data[1], Length(Data));
+          for i := 1 to Length(Data) do
+            fs.Write(Byte(Data[i]), SizeOf(Byte));
         finally
           fs.Free;
         end;
       end;
-      
+
     finally
       Screen.Cursor := crDefault;
     end;
