@@ -135,7 +135,9 @@ uses
   uPSR_graphics in 'uPSR_graphics.pas',
   uPSR_menus in 'uPSR_menus.pas',
   uPSR_std in 'uPSR_std.pas',
-  uPSR_stdctrls in 'uPSR_stdctrls.pas';
+  uPSR_stdctrls in 'uPSR_stdctrls.pas',
+  uPSC_dll in 'uPSC_dll.pas',
+  uPSR_dll in 'uPSR_dll.pas';
 
 {$R *.res}
 
