@@ -76,6 +76,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TFindDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TFindDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterMethod('Procedure CloseDialog');
     RegisterProperty('Left', 'Integer', iptrw);
     RegisterProperty('Position', 'TPoint', iptrw);
@@ -92,6 +93,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TPrintDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TPrintDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterProperty('Collate', 'Boolean', iptrw);
     RegisterProperty('Copies', 'Integer', iptrw);
     RegisterProperty('FromPage', 'Integer', iptrw);
@@ -110,6 +112,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TPrinterSetupDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TPrinterSetupDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
   end;
 end;
 
@@ -119,6 +122,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TFontDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TFontDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterProperty('Font', 'TFont', iptrw);
     RegisterProperty('Device', 'TFontDialogDevice', iptrw);
     RegisterProperty('MinFontSize', 'Integer', iptrw);
@@ -134,6 +138,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TColorDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TColorDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterProperty('Color', 'TColor', iptrw);
     RegisterProperty('CustomColors', 'TStrings', iptrw);
     RegisterProperty('Options', 'TColorDialogOptions', iptrw);
@@ -146,6 +151,7 @@ begin
   //with RegClassS(CL,'TOpenDialog', 'TSaveDialog') do
   with CL.AddClassN(CL.FindClass('TOpenDialog'),'TSaveDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
   end;
 end;
 
@@ -155,6 +161,7 @@ begin
   //with RegClassS(CL,'TCommonDialog', 'TOpenDialog') do
   with CL.AddClassN(CL.FindClass('TCommonDialog'),'TOpenDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterProperty('FileEditStyle', 'TFileEditStyle', iptrw);
     RegisterProperty('Files', 'TStrings', iptr);
     RegisterProperty('HistoryList', 'TStrings', iptrw);
@@ -179,6 +186,7 @@ begin
   //with RegClassS(CL,'TComponent', 'TCommonDialog') do
   with CL.AddClassN(CL.FindClass('TComponent'),'TCommonDialog') do
   begin
+    RegisterMethod('function Execute: Boolean;');
     RegisterProperty('Handle', 'HWnd', iptr);
     RegisterProperty('Ctl3D', 'Boolean', iptrw);
     RegisterProperty('HelpContext', 'THelpContext', iptrw);
@@ -617,6 +625,7 @@ procedure RIRegister_TFindDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TFindDialog) do
   begin
+    RegisterMethod(@TFindDialog.Execute, 'Execute');
     RegisterMethod(@TFindDialog.CloseDialog, 'CloseDialog');
     RegisterPropertyHelper(@TFindDialogLeft_R,@TFindDialogLeft_W,'Left');
     RegisterPropertyHelper(@TFindDialogPosition_R,@TFindDialogPosition_W,'Position');
@@ -632,6 +641,7 @@ procedure RIRegister_TPrintDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TPrintDialog) do
   begin
+    RegisterMethod(@TPrintDialog.Execute, 'Execute');
     RegisterPropertyHelper(@TPrintDialogCollate_R,@TPrintDialogCollate_W,'Collate');
     RegisterPropertyHelper(@TPrintDialogCopies_R,@TPrintDialogCopies_W,'Copies');
     RegisterPropertyHelper(@TPrintDialogFromPage_R,@TPrintDialogFromPage_W,'FromPage');
@@ -649,6 +659,7 @@ procedure RIRegister_TPrinterSetupDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TPrinterSetupDialog) do
   begin
+    RegisterMethod(@TPrinterSetupDialog.Execute, 'Execute');
   end;
 end;
 
@@ -657,6 +668,7 @@ procedure RIRegister_TFontDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TFontDialog) do
   begin
+    RegisterMethod(@TFontDialog.Execute, 'Execute');
     RegisterPropertyHelper(@TFontDialogFont_R,@TFontDialogFont_W,'Font');
     RegisterPropertyHelper(@TFontDialogDevice_R,@TFontDialogDevice_W,'Device');
     RegisterPropertyHelper(@TFontDialogMinFontSize_R,@TFontDialogMinFontSize_W,'MinFontSize');
@@ -671,6 +683,7 @@ procedure RIRegister_TColorDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TColorDialog) do
   begin
+    RegisterMethod(@TColorDialog.Execute, 'Execute');
     RegisterPropertyHelper(@TColorDialogColor_R,@TColorDialogColor_W,'Color');
     RegisterPropertyHelper(@TColorDialogCustomColors_R,@TColorDialogCustomColors_W,'CustomColors');
     RegisterPropertyHelper(@TColorDialogOptions_R,@TColorDialogOptions_W,'Options');
@@ -682,6 +695,7 @@ procedure RIRegister_TSaveDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TSaveDialog) do
   begin
+    RegisterMethod(@TSaveDialog.Execute, 'Execute');
   end;
 end;
 
@@ -690,6 +704,7 @@ procedure RIRegister_TOpenDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TOpenDialog) do
   begin
+    RegisterMethod(@TOpenDialog.Execute, 'Execute');
     RegisterPropertyHelper(@TOpenDialogFileEditStyle_R,@TOpenDialogFileEditStyle_W,'FileEditStyle');
     RegisterPropertyHelper(@TOpenDialogFiles_R,nil,'Files');
     RegisterPropertyHelper(@TOpenDialogHistoryList_R,@TOpenDialogHistoryList_W,'HistoryList');
@@ -713,6 +728,7 @@ procedure RIRegister_TCommonDialog(CL: TPSRuntimeClassImporter);
 begin
   with CL.Add(TCommonDialog) do
   begin
+    RegisterMethod(@TCommonDialog.Execute, 'Execute');
     RegisterPropertyHelper(@TCommonDialogHandle_R,nil,'Handle');
     RegisterPropertyHelper(@TCommonDialogCtl3D_R,@TCommonDialogCtl3D_W,'Ctl3D');
     RegisterPropertyHelper(@TCommonDialogHelpContext_R,@TCommonDialogHelpContext_W,'HelpContext');
