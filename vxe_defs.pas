@@ -47,6 +47,7 @@ var
   opt_renderaxes: Boolean = true;
   opt_renderglgrid: Boolean = true;
   opt_renderwireframe: Boolean = false;
+  opt_silentmacros: Boolean = false;
   opt_filemenuhistory0: bigstring_t;
   opt_filemenuhistory1: bigstring_t;
   opt_filemenuhistory2: bigstring_t;
@@ -88,7 +89,7 @@ uses
   SysUtils, Classes;
 
 const
-  NUMSETTINGS = 38;
+  NUMSETTINGS = 40;
 
 type
   TSettingsType = (tstDevider, tstInteger, tstBoolean, tstString, tstBigString);
@@ -290,6 +291,16 @@ var
       desc: 'SPRITEEXPORTPREVIEWZOOM';
       typeof: tstInteger;
       location: @spriteexportpreviewzoom;
+    ),
+    (
+      desc: '[Macros]';
+      typeof: tstDevider;
+      location: nil;
+    ),
+    (
+      desc: 'SILENTMACROS';
+      typeof: tstBoolean;
+      location: @opt_silentmacros;
     )
 
   );

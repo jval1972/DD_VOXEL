@@ -5724,10 +5724,13 @@ begin
           if vdl.NumCmds <> 0 then
             Form1.SaveUndoEditor;
           numpx := vdl.RenderToBuffer;
-          if numpx > 0 then
-            InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
-          else
-            InfoMessage('Successful run, no voxel items were updated'#13#10);
+          if not opt_silentmacros then
+          begin
+            if numpx > 0 then
+              InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
+            else
+              InfoMessage('Successful run, no voxel items were updated'#13#10);
+          end;
           needrecalc := True;
           fchanged := True;
           PaintBox1.Invalidate;
@@ -5755,10 +5758,13 @@ begin
           if vdl.NumCmds <> 0 then
             Form1.SaveUndoEditor;
           numpx := vdl.RenderToBuffer;
-          if numpx > 0 then
-            InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
-          else
-            InfoMessage('Successful run, no voxel items were updated'#13#10);
+          if not opt_silentmacros then
+          begin
+            if numpx > 0 then
+              InfoMessage('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
+            else
+              InfoMessage('Successful run, no voxel items were updated'#13#10);
+          end;
           needrecalc := True;
           fchanged := True;
           PaintBox1.Invalidate;

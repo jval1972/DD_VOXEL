@@ -4,7 +4,7 @@ object OptionsForm: TOptionsForm
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Options'
-  ClientHeight = 172
+  ClientHeight = 205
   ClientWidth = 223
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,7 +19,7 @@ object OptionsForm: TOptionsForm
   TextHeight = 13
   object Button1: TButton
     Left = 24
-    Top = 128
+    Top = 152
     Width = 75
     Height = 25
     Caption = '&OK'
@@ -30,7 +30,7 @@ object OptionsForm: TOptionsForm
   end
   object Button2: TButton
     Left = 120
-    Top = 128
+    Top = 152
     Width = 75
     Height = 25
     Cancel = True
@@ -69,5 +69,13 @@ object OptionsForm: TOptionsForm
     Height = 17
     Caption = 'Render Wireframe'
     TabOrder = 5
+  end
+  object CheckBox5: TCheckBox
+    Left = 16
+    Top = 112
+    Width = 97
+    Height = 17
+    Caption = 'Silent Macros'
+    TabOrder = 6
   end
 end

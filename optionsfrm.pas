@@ -43,6 +43,7 @@ type
     CheckBox2: TCheckBox;
     CheckBox3: TCheckBox;
     CheckBox4: TCheckBox;
+    CheckBox5: TCheckBox;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -65,6 +66,7 @@ begin
   opt_renderaxes := CheckBox2.Checked;
   opt_renderglgrid := CheckBox3.Checked;
   opt_renderwireframe := CheckBox4.Checked;
+  opt_silentmacros := CheckBox5.Checked;
 end;
 
 procedure TOptionsForm.FormCreate(Sender: TObject);
@@ -73,6 +75,7 @@ begin
   CheckBox2.Checked := opt_renderaxes;
   CheckBox3.Checked := opt_renderglgrid;
   CheckBox4.Checked := opt_renderwireframe;
+  CheckBox5.Checked := opt_silentmacros;
 end;
 
 end.
