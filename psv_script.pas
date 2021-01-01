@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  DD_VOXEL: DelphiDoom Voxel Editor
-//  Copyright (C) 2013-2018 by Jim Valavanis
+//  Copyright (C) 2013-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -40,6 +40,33 @@ function VDL_CompileScript(const Script: string; const doRun: boolean): boolean;
 implementation
 
 uses
+  uPSC_buttons,
+  uPSC_classes,
+  uPSC_comobj,
+  uPSC_controls,
+  uPSC_dateutils,
+  uPSC_DB,
+  uPSC_extctrls,
+  uPSC_forms,
+  uPSC_graphics,
+  uPSC_menus,
+  uPSC_std,
+  uPSC_stdctrls,
+  uPSC_dll,
+  uPSR_buttons,
+  uPSR_classes,
+  uPSR_comobj,
+  uPSR_controls,
+  uPSR_dateutils,
+  uPSR_DB,
+  uPSR_extctrls,
+  uPSR_forms,
+  uPSR_graphics,
+  uPSR_menus,
+  uPSR_std,
+  uPSR_stdctrls,
+  uPSR_dll,
+  Forms,
   psv_script_proclist,
   psv_script_functions,
   psv_voxelbuffer,
@@ -78,6 +105,23 @@ begin
     SIRegister_VoxelBuffer(Sender);
     SIRegister_VXTextures(Sender);
     SIRegister_VXVoxels(Sender);
+
+    SIRegister_Std(Sender);
+    SIRegister_Classes(Sender, True);
+    SIRegister_Controls(Sender);
+    SIRegister_StdCtrls(Sender);
+    SIRegister_Buttons(Sender);
+    SIRegister_ComObj(Sender);
+    RegisterDateTimeLibrary_C(Sender);
+    SIRegister_DB(Sender);
+    RegisterDll_Compiletime(Sender);
+    SIRegister_ExtCtrls(Sender);
+    SIRegister_Forms(Sender);
+    SIRegister_Graphics(Sender, True);
+    SIRegister_Menus(Sender);
+
+    AddImportedClassVariable(Sender, 'Self', 'TForm');
+    AddImportedClassVariable(Sender, 'Application', 'TApplication');
 
     Result := True;
   end
@@ -145,6 +189,23 @@ begin
     RegisterClassLibraryRuntime(Exec, importer);
 
     VDL_RegisterProcsExec(Exec);
+
+    RIRegister_Std(importer);
+    RIRegister_Classes(importer, True);
+    RIRegister_Controls(importer);
+    RIRegister_stdctrls(importer);
+    RIRegister_Buttons(importer);
+    RIRegister_ComObj(Exec);
+    RegisterDateTimeLibrary_R(Exec);
+    RIRegister_DB(importer);
+    RegisterDLLRuntime(Exec);
+    RIRegister_ExtCtrls(importer);
+    RIRegister_Forms(importer);
+    RIRegister_Graphics(importer, True);
+    RIRegister_Menus(importer);
+
+    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('SELF')), Application.MainForm);
+    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('APPLICATION')), Application);
 
     if not Exec.LoadData(Data) then // Load the data from the Data string.
     begin
