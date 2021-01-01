@@ -80,6 +80,8 @@ type
     ToolButton1: TToolButton;
     ToolButton2: TToolButton;
     NewScriptButton1: TSpeedButton;
+    SaveDialog2: TSaveDialog;
+    CreateMacroButton1: TSpeedButton;
     procedure Splitter3Moved(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SaveButton1Click(Sender: TObject);
@@ -103,6 +105,7 @@ type
     procedure FormResize(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure NewScriptButton1Click(Sender: TObject);
+    procedure CreateMacroButton1Click(Sender: TObject);
   private
     { Private declarations }
     CodeEditor: TSynEdit;
@@ -256,13 +259,14 @@ end;
 procedure TEditorForm.CompileButton1Click(Sender: TObject);
 var
   vdl: TDDVoxelScriptLoader;
+  Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
 begin
   Screen.Cursor := crHourGlass;
   try
     OutputMemo.Lines.Clear;
 
     vdl := TDDVoxelScriptLoader.Create(Form1.voxelbuffer, Form1.voxelsize);
-    vdl.LoadFromScript(CodeEditor.Lines.Text, False);
+    vdl.LoadFromScript(CodeEditor.Lines.Text, True, False, Data);
 
     vdl.Free;
   finally
@@ -274,13 +278,14 @@ procedure TEditorForm.CompileAndRunButton1Click(Sender: TObject);
 var
   vdl: TDDVoxelScriptLoader;
   ret: boolean;
+  Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
 begin
   Screen.Cursor := crHourGlass;
   try
     OutputMemo.Lines.Clear;
 
     vdl := TDDVoxelScriptLoader.Create(Form1.voxelbuffer, Form1.voxelsize);
-    ret := vdl.LoadFromScript(CodeEditor.Lines.Text, True);
+    ret := vdl.LoadFromScript(CodeEditor.Lines.Text, True, True, Data);
 
     if ret then
     begin
@@ -638,6 +643,40 @@ begin
   changed := False;
   PageControl1.ActivePageIndex := 0;
   OutputMemo.Lines.Clear;
+end;
+
+procedure TEditorForm.CreateMacroButton1Click(Sender: TObject);
+var
+  vdl: TDDVoxelScriptLoader;
+  ret: boolean;
+  Data: {$IFDEF UNICODE}AnsiString{$ELSE}string{$ENDIF};
+  fs: TFileStream;
+begin
+  if SaveDialog2.Execute then
+  begin
+    Screen.Cursor := crHourGlass;
+    try
+      OutputMemo.Lines.Clear;
+
+      vdl := TDDVoxelScriptLoader.Create(Form1.voxelbuffer, Form1.voxelsize);
+      ret := vdl.LoadFromScript(CodeEditor.Lines.Text, True, False, Data);
+      vdl.Free;
+
+      if ret then
+      begin
+        BackupFile(ffilename);
+        fs := TFileStream.Create(SaveDialog2.FileName, fmCreate);
+        try
+          fs.Write(Data[1], Length(Data));
+        finally
+          fs.Free;
+        end;
+      end;
+      
+    finally
+      Screen.Cursor := crDefault;
+    end;
+  end;
 end;
 
 end.
