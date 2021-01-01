@@ -1070,7 +1070,7 @@ type
 
 
 const
-  VOXELDEF_KEYWORD_COUNT = 48;
+  VOXELDEF_KEYWORD_COUNT = 61;
   VoxelDefLookupTable: array[0..VOXELDEF_KEYWORD_COUNT - 1] of TRTab = (
       (name: 'AND'; c: CSTII_and),
       (name: 'ARRAY'; c: CSTII_array),
@@ -1078,10 +1078,10 @@ const
       (name: 'BEGIN'; c: CSTII_begin),
       (name: 'CASE'; c: CSTII_case),
       (name: 'CHR'; c: CSTII_chr),
-//      (name: 'CLASS'; c: CSTII_class),
+      (name: 'CLASS'; c: CSTII_class),
       (name: 'CONST'; c: CSTII_const),
-//      (name: 'CONSTRUCTOR'; c: CSTII_constructor),
-//      (name: 'DESTRUCTOR'; c: CSTII_destructor),
+      (name: 'CONSTRUCTOR'; c: CSTII_constructor),
+      (name: 'DESTRUCTOR'; c: CSTII_destructor),
       (name: 'DIV'; c: CSTII_div),
       (name: 'DO'; c: CSTII_do),
       (name: 'DOWNTO'; c: CSTII_downto),
@@ -1089,8 +1089,8 @@ const
       (name: 'END'; c: CSTII_end),
       (name: 'EXCEPT'; c: CSTII_except),
       (name: 'EXIT'; c: CSTII_exit),
-//      (name: 'EXPORT'; c: CSTII_Export),
-//      (name: 'EXTERNAL'; c: CSTII_External),
+      (name: 'EXPORT'; c: CSTII_Export),
+      (name: 'EXTERNAL'; c: CSTII_External),
 //      (Name: 'FINALIZATION'; c : CSTII_finalization),//* Nvds
       (name: 'FINALLY'; c: CSTII_finally),
       (name: 'FOR'; c: CSTII_for),
@@ -1100,7 +1100,7 @@ const
       (name: 'IF'; c: CSTII_if),
 //      (name: 'IMPLEMENTATION'; c: CSTII_Implementation),
       (name: 'IN'; c: CSTII_in),
-//      (name: 'INHERITED'; c: CSTII_inherited),
+      (name: 'INHERITED'; c: CSTII_inherited),
 //      (Name: 'INITIALIZATION'; c: CSTII_initialization), //* Nvds
 //      (name: 'INTERFACE'; c: CSTII_Interface),
       (name: 'IS'; c: CSTII_is),
@@ -1112,13 +1112,13 @@ const
       (name: 'OR'; c: CSTII_or),
       (name: 'ORD'; c: CSTII_ord),
       (name: 'OUT'; c: CSTII_Out),
-//      (name: 'OVERRIDE'; c: CSTII_override),
-//      (name: 'PRIVATE'; c: CSTII_private),
+      (name: 'OVERRIDE'; c: CSTII_override),
+      (name: 'PRIVATE'; c: CSTII_private),
       (name: 'PROCEDURE'; c: CSTII_procedure),
-//      (name: 'PROPERTY'; c: CSTII_property),
-//      (name: 'PROTECTED'; c: CSTII_protected),
-//      (name: 'PUBLIC'; c: CSTII_public),
-//      (name: 'PUBLISHED'; c: CSTII_published),
+      (name: 'PROPERTY'; c: CSTII_property),
+      (name: 'PROTECTED'; c: CSTII_protected),
+      (name: 'PUBLIC'; c: CSTII_public),
+      (name: 'PUBLISHED'; c: CSTII_published),
       (name: 'RECORD'; c: CSTII_record),
       (name: 'REPEAT'; c: CSTII_repeat),
       (name: 'SET'; c: CSTII_set),
@@ -1132,8 +1132,8 @@ const
       (name: 'UNTIL'; c: CSTII_until),
       (name: 'USES'; c: CSTII_uses),
       (name: 'VAR'; c: CSTII_var),
+      (name: 'VIRTUAL'; c: CSTII_virtual),
       (name: 'VOXEL'; c: CSTII_program),
-//      (name: 'VIRTUAL'; c: CSTII_virtual),
       (name: 'WHILE'; c: CSTII_while),
       (name: 'WITH'; c: CSTII_with),
       (name: 'XOR'; c: CSTII_xor));

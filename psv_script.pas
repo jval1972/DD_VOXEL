@@ -108,16 +108,16 @@ begin
 
     SIRegister_Std(Sender);
     SIRegister_Classes(Sender, True);
+    SIRegister_Graphics(Sender, True);
     SIRegister_Controls(Sender);
     SIRegister_StdCtrls(Sender);
-    SIRegister_Buttons(Sender);
+    SIRegister_Forms(Sender);
     SIRegister_ComObj(Sender);
+    SIRegister_Buttons(Sender);
     RegisterDateTimeLibrary_C(Sender);
     SIRegister_DB(Sender);
     RegisterDll_Compiletime(Sender);
     SIRegister_ExtCtrls(Sender);
-    SIRegister_Forms(Sender);
-    SIRegister_Graphics(Sender, True);
     SIRegister_Menus(Sender);
 
     AddImportedClassVariable(Sender, 'Self', 'TForm');
@@ -143,6 +143,11 @@ begin
   //   Instead we use a stub method, and we leave the actual Free of the objects to the calling Application
 end;
 
+function MyExportCheck(Sender: TPSPascalCompiler; Proc: TPSInternalProcedure; const ProcDecl: AnsiString): Boolean;
+begin
+  Result := True;
+end;
+
 function VDL_CompileScript(const Script: string; const doRun: boolean): boolean;
 var
   i: integer;
@@ -154,7 +159,10 @@ begin
   VDL_InitProcList;
 
   Compiler := TPSPascalCompiler.Create; // create an instance of the compiler.
+  Compiler.OnExportCheck := MyExportCheck;
   Compiler.OnUses := ScriptOnUses; // assign the OnUses event.
+  Compiler.OnExternalProc := DllExternalProc;
+
   if not Compiler.Compile(Script) then  // Compile the Pascal script into bytecode.
   begin
     for i := 0 to Compiler.MsgCount - 1 do
@@ -185,25 +193,27 @@ begin
 
     Exec := TPSExec.Create;  // Create an instance of the executer.
 
+    RegisterDLLRuntime(Exec);
   //  Exec.AllowNullClasses := True;
-    RegisterClassLibraryRuntime(Exec, importer);
 
     VDL_RegisterProcsExec(Exec);
 
     RIRegister_Std(importer);
     RIRegister_Classes(importer, True);
+    RIRegister_Graphics(importer, True);
     RIRegister_Controls(importer);
     RIRegister_stdctrls(importer);
-    RIRegister_Buttons(importer);
-    RIRegister_ComObj(Exec);
-    RegisterDateTimeLibrary_R(Exec);
-    RIRegister_DB(importer);
-    RegisterDLLRuntime(Exec);
-    RIRegister_ExtCtrls(importer);
     RIRegister_Forms(importer);
-    RIRegister_Graphics(importer, True);
+    RIRegister_Buttons(importer);
+    RIRegister_DB(importer);
+    RIRegister_ExtCtrls(importer);
     RIRegister_Menus(importer);
 
+    RegisterClassLibraryRuntime(Exec, importer);
+
+    RIRegister_ComObj(Exec);
+    RegisterDateTimeLibrary_R(Exec);
+    
     SetVariantToClass(Exec.GetVarNo(Exec.GetVar('SELF')), Application.MainForm);
     SetVariantToClass(Exec.GetVarNo(Exec.GetVar('APPLICATION')), Application);
 
