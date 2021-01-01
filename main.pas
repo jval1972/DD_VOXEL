@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  DD_VOXEL: DelphiDoom Voxel Editor
-//  Copyright (C) 2013-2020 by Jim Valavanis
+//  Copyright (C) 2013-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -1304,7 +1304,7 @@ procedure TForm1.AboutButton1Click(Sender: TObject);
 begin
   InfoMessage(
       Format(
-        '%s'#13#10'Version %s'#13#10#13#10'A tool for creating VOXELS for the DelphiDoom engine.'#13#10'© 2013 - 2020, jvalavanis@gmail.com',
+        '%s'#13#10'Version %s'#13#10#13#10'A tool for creating VOXELS for the DelphiDoom engine.'#13#10'© 2013 - 2021, jvalavanis@gmail.com',
         [rsTitle, I_VersionBuilt]
       )
   );
