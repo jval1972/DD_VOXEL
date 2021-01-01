@@ -8,6 +8,8 @@ uses
 
 procedure SIRegister_Forms_TypesAndConsts(Cl: TPSPascalCompiler);
 
+procedure SIRegister_Forms_MoreConsts(C1: TPSPascalCompiler);
+
 
 procedure SIRegisterTCONTROLSCROLLBAR(Cl: TPSPascalCompiler);
 procedure SIRegisterTSCROLLINGWINCONTROL(Cl: TPSPascalCompiler);
@@ -18,6 +20,9 @@ procedure SIRegisterTAPPLICATION(Cl: TPSPascalCompiler);
 procedure SIRegister_Forms(Cl: TPSPascalCompiler);
 
 implementation
+
+uses
+  Windows, Controls;
 
 procedure SIRegisterTCONTROLSCROLLBAR(Cl: TPSPascalCompiler);
 begin
@@ -259,9 +264,45 @@ begin
   cl.AddTypeS('THelpContext', 'LongInt');
 end;
 
+procedure SIRegister_Forms_MoreConsts(C1: TPSPascalCompiler);
+begin
+  C1.AddConstantN('mrNone', 'integer').Value.ts32 := mrNone;
+  C1.AddConstantN('mrOk', 'integer').Value.ts32 := mrOk;
+  C1.AddConstantN('mrCancel', 'integer').Value.ts32 := mrCancel;
+  C1.AddConstantN('mrAbort', 'integer').Value.ts32 := mrAbort;
+  C1.AddConstantN('mrRetry', 'integer').Value.ts32 := mrRetry;
+  C1.AddConstantN('mrIgnore', 'integer').Value.ts32 := mrIgnore;
+  C1.AddConstantN('mrYes', 'integer').Value.ts32 := mrYes;
+  C1.AddConstantN('mrNo', 'integer').Value.ts32 := mrNo;
+  C1.AddConstantN('mrAll', 'integer').Value.ts32 := mrAll;
+  C1.AddConstantN('mrNoToAll', 'integer').Value.ts32 := mrNoToAll;
+  C1.AddConstantN('mrYesToAll', 'integer').Value.ts32 := mrYesToAll;
+  C1.AddConstantN('IDOK', 'integer').Value.ts32 := IDOK;
+  C1.AddConstantN('ID_OK', 'integer').Value.ts32 := ID_OK;
+  C1.AddConstantN('IDCANCEL', 'integer').Value.ts32 := IDCANCEL;
+  C1.AddConstantN('ID_CANCEL', 'integer').Value.ts32 := ID_CANCEL;
+  C1.AddConstantN('IDABORT', 'integer').Value.ts32 := IDABORT;
+  C1.AddConstantN('ID_ABORT', 'integer').Value.ts32 := ID_ABORT;
+  C1.AddConstantN('IDRETRY', 'integer').Value.ts32 := IDRETRY;
+  C1.AddConstantN('ID_RETRY', 'integer').Value.ts32 := ID_RETRY;
+  C1.AddConstantN('IDIGNORE', 'integer').Value.ts32 := IDIGNORE;
+  C1.AddConstantN('ID_IGNORE', 'integer').Value.ts32 := ID_IGNORE;
+  C1.AddConstantN('IDYES', 'integer').Value.ts32 := IDYES;
+  C1.AddConstantN('ID_YES', 'integer').Value.ts32 := ID_YES;
+  C1.AddConstantN('IDNO', 'integer').Value.ts32 := IDNO;
+  C1.AddConstantN('ID_NO', 'integer').Value.ts32 := ID_NO;
+  C1.AddConstantN('IDCLOSE', 'integer').Value.ts32 := IDCLOSE;
+  C1.AddConstantN('ID_CLOSE', 'integer').Value.ts32 := ID_CLOSE;
+  C1.AddConstantN('IDHELP', 'integer').Value.ts32 := IDHELP;
+  C1.AddConstantN('ID_HELP', 'integer').Value.ts32 := ID_HELP;
+  C1.AddConstantN('IDTRYAGAIN', 'integer').Value.ts32 := IDTRYAGAIN;
+  C1.AddConstantN('IDCONTINUE', 'integer').Value.ts32 := IDCONTINUE;
+end;
+
 procedure SIRegister_Forms(Cl: TPSPascalCompiler);
 begin
   SIRegister_Forms_TypesAndConsts(cl);
+  SIRegister_Forms_MoreConsts(cl);
 
   {$IFNDEF PS_MINIVCL}
   SIRegisterTCONTROLSCROLLBAR(cl);
