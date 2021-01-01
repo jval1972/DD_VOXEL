@@ -183,6 +183,24 @@ begin
     Compiler.Free; // After compiling the script, there is no need for the compiler anymore.
 
     printf('Compile successful'#13#10);
+  end
+  else  // JVAL: SOS --> HAVE TO RUNTIME REGISER THE IMPORTED FUNCTIONS!!! Thus why we compile a stub script
+  begin
+    Compiler := TPSPascalCompiler.Create; // create an instance of the compiler.
+    Compiler.OnExportCheck := MyExportCheck;
+    Compiler.OnUses := ScriptOnUses; // assign the OnUses event.
+    Compiler.OnExternalProc := DllExternalProc;
+
+    if not Compiler.Compile('voxel test1;'#13#10'begin'#13#10'end.') then  // Compile stub Pascal script into bytecode.
+    begin
+      printf('Script Engine Internal Error');
+
+      Compiler.Free;
+      VDL_ShutDownProcList;
+      Result := False;
+      Exit;
+    end;
+    Compiler.Free; // After compiling the script, there is no need for the compiler anymore.
   end;
 
   if doRun then
@@ -200,8 +218,7 @@ begin
     Exec := TPSExec.Create;  // Create an instance of the executer.
 
     RegisterDLLRuntime(Exec);
-  //  Exec.AllowNullClasses := True;
-
+    Exec.AllowNullClasses := True;
     VDL_RegisterProcsExec(Exec);
 
     RIRegister_Std(importer);
@@ -216,28 +233,30 @@ begin
     RIRegister_ExtCtrls(importer);
     RIRegister_Menus(importer);
 
-    RegisterClassLibraryRuntime(Exec, importer);
-
     RIRegister_ComObj(Exec);
     RegisterDateTimeLibrary_R(Exec);
 
-    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('SELF')), Application.MainForm);
-    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('APPLICATION')), Application);
+    RegisterClassLibraryRuntime(Exec, importer);
 
     if not Exec.LoadData(Data) then // Load the data from the Data string.
     begin
       printf('Can not run script, internal error!');
       { For some reason the script could not be loaded. This is usually the case when a
         library that has been used at compile time isn't registered at runtime. }
+      importer.Free;
       Exec.Free;
        // You could raise an exception here.
       VDL_ShutDownProcList;
       Result := False;
       Exit;
     end;
+
     RIRegisterRTL_VoxelBuffer(exec);
     RIRegisterRTL_VXTextures(exec);
     RIRegisterRTL_VXVoxels(exec);
+
+    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('SELF')), Application.MainForm);
+    SetVariantToClass(Exec.GetVarNo(Exec.GetVar('APPLICATION')), Application);
 
     printf('Running...'#13#10);
     Exec.RunScript; // Run the script.
