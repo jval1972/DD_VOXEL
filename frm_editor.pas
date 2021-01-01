@@ -297,10 +297,13 @@ begin
         printf('Voxel buffer updated successfully, ' + IntToStr(numpx) + ' voxel items were updated'#13#10)
       else
         printf('Successful run, no voxel items were updated'#13#10);
-      Form1.needrecalc := True;
-      Form1.VoxelChanged := True;
-      Form1.PaintBox1.Invalidate;
-      Form1.UpdateDepthBuffer;
+      if vdl.NumCmds > 0 then
+      begin
+        Form1.needrecalc := True;
+        Form1.VoxelChanged := True;
+        Form1.PaintBox1.Invalidate;
+        Form1.UpdateDepthBuffer;
+      end;
     end;
     
     vdl.Free;

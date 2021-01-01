@@ -5731,10 +5731,13 @@ begin
             else
               InfoMessage('Successful run, no voxel items were updated'#13#10);
           end;
-          needrecalc := True;
-          fchanged := True;
-          PaintBox1.Invalidate;
-          UpdateDepthBuffer;
+          if vdl.NumCmds > 0 then
+          begin
+            needrecalc := True;
+            fchanged := True;
+            PaintBox1.Invalidate;
+            UpdateDepthBuffer;
+          end;
         end
         else
         begin
@@ -5765,10 +5768,13 @@ begin
             else
               InfoMessage('Successful run, no voxel items were updated'#13#10);
           end;
-          needrecalc := True;
-          fchanged := True;
-          PaintBox1.Invalidate;
-          UpdateDepthBuffer;
+          if vdl.NumCmds > 0 then
+          begin
+            needrecalc := True;
+            fchanged := True;
+            PaintBox1.Invalidate;
+            UpdateDepthBuffer;
+          end;
         end
         else
         begin
