@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  DD_VOXEL: DelphiDoom Voxel Editor
-//  Copyright (C) 2013-2019 by Jim Valavanis
+//  Copyright (C) 2013-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -131,7 +131,7 @@ begin
   Inc(fNumCmds);
   if fNumCmds >= fRealNumCmds then
   begin
-    fRealNumCmds := fRealNumCmds + 16;
+    fRealNumCmds := fRealNumCmds + 1024;
     ReallocMem(fCmds, fRealNumCmds * SizeOf(voxelcmd_t));
   end;
   Result := @fCmds[fNumCmds - 1];
