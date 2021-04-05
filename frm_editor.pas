@@ -147,6 +147,7 @@ uses
   psv_script_proclist,
   SynHighlighterDDVoxelScript,
   SynEditTypes,
+  SynUnicode,
   frm_ConfirmReplace,
   frm_GotoLine,
   frm_SearchText,
@@ -240,6 +241,8 @@ begin
   begin
     changed := False;
     BackupFile(ffilename);
+    CodeEditor.Lines.SaveUnicode := False;
+    CodeEditor.Lines.SaveFormat := sfAnsi;
     CodeEditor.Lines.SaveToFile(ffilename);
   end;
 end;
@@ -251,6 +254,8 @@ begin
     changed := False;
     ffilename := SaveDialog1.FileName;
     BackupFile(ffilename);
+    CodeEditor.Lines.SaveUnicode := False;
+    CodeEditor.Lines.SaveFormat := sfAnsi;
     CodeEditor.Lines.SaveToFile(ffilename);
     Caption := rsEditorTitle + ' - ' + MkShortName(ffilename);
   end;
