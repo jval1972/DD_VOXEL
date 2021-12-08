@@ -82,7 +82,7 @@ begin
     RegisterMethod(@TControl.HasParent, 'HasParent');
     RegisterMethod(@TCONTROL.CLIENTTOSCREEN, 'ClientToScreen');
     RegisterMethod(@TCONTROL.DRAGGING, 'Dragging');
-   {$IFNDEF FPC} 
+   {$IFNDEF FPC}
     RegisterMethod(@TCONTROL.BEGINDRAG, 'BeginDrag');
     RegisterMethod(@TCONTROL.ENDDRAG, 'EndDrag');
    {$ENDIF}
@@ -219,7 +219,7 @@ begin
 {$IFNDEF FPC}
     RegisterVirtualMethod(@TDragObject.GetName, 'GetName');
     RegisterVirtualMethod(@TDragObject.Instance, 'Instance');
-{$ENDIF}    
+{$ENDIF}
     RegisterVirtualMethod(@TDragObject.HideDragImage, 'HideDragImage');
     RegisterVirtualMethod(@TDragObject.ShowDragImage, 'ShowDragImage');
 {$IFDEF DELPHI4UP}

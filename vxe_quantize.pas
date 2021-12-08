@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  DD_VOXEL: DelphiDoom Voxel Editor
-//  Copyright (C) 2013-2019 by Jim Valavanis
+//  Copyright (C) 2013-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -50,7 +50,7 @@ uses
   SysUtils,
   vxe_utils;
 
-// Color quantization algorythm from https://rosettacode.org  
+// Color quantization algorythm from https://rosettacode.org
 type
   oct_node_p = ^oct_node_t;
   oct_node_t = record

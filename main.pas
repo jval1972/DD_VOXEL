@@ -4235,7 +4235,7 @@ begin
       end;
 
     Clipboard.Assign(b);
-    
+
     Screen.Cursor := crDefault;
   finally
     b.Free;
@@ -4270,7 +4270,7 @@ begin
       end;
 
     Clipboard.Assign(b);
-    
+
     Screen.Cursor := crDefault;
   finally
     b.Free;
@@ -4305,7 +4305,7 @@ begin
       end;
 
     Clipboard.Assign(b);
-    
+
     Screen.Cursor := crDefault;
   finally
     b.Free;
@@ -4375,7 +4375,7 @@ begin
       end;
 
     Clipboard.Assign(b);
-    
+
     Screen.Cursor := crDefault;
   finally
     b.Free;
@@ -4956,7 +4956,7 @@ begin
             spriteformat, spriteprefix, spritesavepalette, spriteangles, spritedistance, spriteviewheight);
       end
       else
-      begin 
+      begin
         case spriteangles of
           1: VXE_ExportVoxelToSprite1(fvoxelbuffer, fvoxelsize, spritefilename, spritesavetype, spritequality, spriteformat, spriteprefix, spritesavepalette);
           8: VXE_ExportVoxelToSprite8(fvoxelbuffer, fvoxelsize, spritefilename, spritesavetype, spritequality, spriteformat, spriteprefix, spritesavepalette);
@@ -5101,7 +5101,7 @@ begin
     for x := 0 to 255 do
       pal[x] := RGB(x, x, x);
     UpdatePaletteBitmap(pal);
-    
+
     if cchanged then
     begin
       fchanged := True;
@@ -5609,7 +5609,7 @@ var
   s: string;
 begin
   EnableMovePlaneShortCuts(True);
-  
+
   Increaselevel1.Enabled := voxelview = vv_none;
   Decreaselevel1.Enabled := voxelview = vv_none;
 

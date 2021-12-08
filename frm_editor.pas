@@ -310,7 +310,7 @@ begin
         Form1.UpdateDepthBuffer;
       end;
     end;
-    
+
     vdl.Free;
   finally
     Screen.Cursor := crDefault;

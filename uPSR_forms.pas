@@ -47,7 +47,7 @@ end;
 {$IFNDEF FPC}
 {$IFNDEF CLX}
 procedure TFORMACTIVEOLECONTROL_W(Self: TFORM; T: TWINCONTROL); begin Self.ACTIVEOLECONTROL := T; end;
-procedure TFORMACTIVEOLECONTROL_R(Self: TFORM; var T: TWINCONTROL); begin T := Self.ACTIVEOLECONTROL; 
+procedure TFORMACTIVEOLECONTROL_R(Self: TFORM; var T: TWINCONTROL); begin T := Self.ACTIVEOLECONTROL;
 end;
 procedure TFORMTILEMODE_W(Self: TFORM; T: TTILEMODE); begin Self.TILEMODE := T; end;
 procedure TFORMTILEMODE_R(Self: TFORM; var T: TTILEMODE); begin T := Self.TILEMODE; end;
@@ -56,7 +56,7 @@ procedure TFORMACTIVEMDICHILD_R(Self: TFORM; var T: TFORM); begin T := Self.ACTI
 procedure TFORMDROPTARGET_W(Self: TFORM; T: BOOLEAN); begin Self.DROPTARGET := T; end;
 procedure TFORMDROPTARGET_R(Self: TFORM; var T: BOOLEAN); begin T := Self.DROPTARGET; end;
 procedure TFORMMDICHILDCOUNT_R(Self: TFORM; var T: INTEGER); begin T := Self.MDICHILDCOUNT; end;
-procedure TFORMMDICHILDREN_R(Self: TFORM; var T: TFORM; t1: INTEGER); begin T := Self.MDICHILDREN[T1]; 
+procedure TFORMMDICHILDREN_R(Self: TFORM; var T: TFORM; t1: INTEGER); begin T := Self.MDICHILDREN[T1];
 end;
 {$ENDIF}{FPC}
 
@@ -88,7 +88,7 @@ begin
 
     {$IFNDEF PS_MINIVCL}
  {$IFNDEF FPC}
-{$IFNDEF CLX} 
+{$IFNDEF CLX}
     RegisterMethod(@TFORM.ARRANGEICONS, 'ArrangeIcons');
     RegisterMethod(@TFORM.GETFORMIMAGE, 'GetFormImage');
     RegisterMethod(@TFORM.PRINT, 'Print');

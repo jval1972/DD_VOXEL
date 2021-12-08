@@ -362,7 +362,7 @@ begin
         c := vox[xx, yy, zz];
         if c = 0 then
           continue;
-          
+
         b := flags[xx, yy, zz];
         skip_x0 := b and FLG_SKIPX0 <> 0;
         skip_x1 := b and FLG_SKIPX1 <> 0;

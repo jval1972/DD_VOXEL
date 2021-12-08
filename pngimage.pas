@@ -3501,7 +3501,7 @@ begin
         Row_Buffer[RowUsed][Col] := (pp + vv) and $FF;
       end {for};
     end;
-      
+
   end {case};
 end;
 

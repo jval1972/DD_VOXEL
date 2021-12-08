@@ -77,7 +77,7 @@ begin
     RegisterMethod(@TCanvasEllipse, 'Ellipse');
     RegisterMethod(@TCanvasFillRect, 'FillRect');
     RegisterMethod(@TCanvasFloodFill, 'FloodFill');
-{$ELSE}  
+{$ELSE}
     RegisterMethod(@TCanvas{$IFNDEF FPC}.{$ENDIF}Arc, 'Arc');
     RegisterMethod(@TCanvas{$IFNDEF FPC}.{$ENDIF}Chord, 'Chord');
     RegisterMethod(@TCanvas{$IFNDEF FPC}.{$ENDIF}Rectangle, 'Rectangle');

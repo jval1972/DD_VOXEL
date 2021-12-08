@@ -9,7 +9,7 @@ uses
 {
    Will register files from:
      stdctrls
- 
+
 Requires:
   STD, classes, controls and graphics
 }

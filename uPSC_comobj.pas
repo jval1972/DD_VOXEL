@@ -7,9 +7,9 @@ uses
   uPSCompiler, uPSUtils;
 
 {
- 
+
 Will register:
- 
+
 function CreateOleObject(const ClassName: String): IDispatch;
 function GetActiveOleObject(const ClassName: String): IDispatch;
 
@@ -47,7 +47,7 @@ begin
 {$ENDIF}
   cl.AddDelphiFunction('function CreateOleObject(const ClassName: string): IDispatch;');
   cl.AddDelphiFunction('function GetActiveOleObject(const ClassName: string): IDispatch;');
-{$ENDIF}  
+{$ENDIF}
 end;
 
 end.

@@ -17,7 +17,7 @@ uses
 
 
 
-procedure RIRegisterTObject(CL: TPSRuntimeClassImporter); 
+procedure RIRegisterTObject(CL: TPSRuntimeClassImporter);
 begin
   with cl.Add(TObject) do
   begin

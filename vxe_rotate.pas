@@ -29,17 +29,17 @@
 
 unit vxe_rotate;
 
- 
+
 
 interface
 
- 
+
 
 uses
 
   Windows, Classes, Graphics;
 
- 
+
 
 procedure RotateBitmap90DegreesCounterClockwise(var ABitmap: TBitmap);
 
@@ -71,11 +71,11 @@ type
 
   end;
 
- 
+
 
 procedure Win16Dec(var P: Pointer; const N: LongInt); forward;
 
- 
+
 
 procedure Win16Inc(var P: Pointer; const N: LongInt);
 
@@ -97,7 +97,7 @@ begin
 
 end;
 
- 
+
 
 procedure Win16Dec(var P: Pointer; const N: LongInt);
 
@@ -119,7 +119,7 @@ begin
 
 end;
 
- 
+
 
 (*
 
@@ -127,7 +127,7 @@ procedure HugeShift; far; external 'KERNEL' index 113;
 
 procedure Win16Dec(var P: Pointer; const N: LongInt); forward;
 
- 
+
 
 procedure Win16Inc(var HugePtr: Pointer; Amount: LongInt);
 
@@ -155,7 +155,7 @@ procedure Win16Inc(var HugePtr: Pointer; Amount: LongInt);
 
   end;
 
- 
+
 
 begin
 
@@ -163,7 +163,7 @@ begin
 
 end;
 
- 
+
 
 procedure Win16Dec(var P: Pointer; const N: LongInt);
 
@@ -187,11 +187,11 @@ end;
 
 *)
 
- 
+
 
 (*$ENDIF*)
 
- 
+
 
 procedure RotateBitmap90DegreesCounterClockwise(var ABitmap: TBitmap);
 
@@ -199,7 +199,7 @@ const
 
   BitsPerByte = 8;
 
- 
+
 
 var
 
@@ -243,7 +243,7 @@ var
 
   T: LongInt;
 
- 
+
 
 procedure NonIntegralByteRotate; (* nested *)
 
@@ -275,7 +275,7 @@ var
 
   ShiftRightAmount, ShiftRightStart: LongInt;
 
- 
+
 
 begin
 
@@ -289,25 +289,25 @@ begin
 
   (*$ENDIF*)
 
- 
+
 
   { PFirstScanLine advances along the first scan line of bmpBufferR. }
 
   PFirstScanLine := bmpBufferR;
 
- 
+
 
   { Set up the indexing. }
 
   FirstIndex := BitsPerByte - BitCount;
 
- 
+
 
   {
 
   Set up the bit masks:
 
- 
+
 
   For a monochrome bitmap,
 
@@ -315,7 +315,7 @@ begin
 
   FirstMask := 10000000
 
- 
+
 
   For a 4-bit bitmap,
 
@@ -323,7 +323,7 @@ begin
 
   FirstMask := 11110000
 
- 
+
 
   We'll shift through these such that the CurrentBits and the MaskBits will go
 
@@ -335,7 +335,7 @@ begin
 
   11110000, 00001111
 
- 
+
 
   The CurrentBitIndex denotes how far over the right-most bit would need to
 
@@ -355,23 +355,23 @@ begin
 
   FirstMask := LastMask shl FirstIndex;
 
- 
+
 
   CurrentBits := FirstMask;
 
   CurrentBitIndex := FirstIndex;
 
- 
+
 
   ShiftRightStart := BitCount * (PixelsPerByte - 1);
 
- 
+
 
   { Here's the meat. Loop through the pixels and rotate appropriately. }
 
   { Remember that DIBs have their origins opposite from DDBs. }
 
- 
+
 
   { The Y counter holds the current row of the source bitmap. }
 
@@ -379,7 +379,7 @@ begin
 
   PbmpBufferR := PFirstScanLine;
 
- 
+
 
   {
 
@@ -427,7 +427,7 @@ begin
 
   3rd-to-left bit, so we would take PbmpBufferR^ and 11011111.
 
- 
+
 
   Now consider our current source byte. For monochrome bitmaps, we're
 
@@ -453,7 +453,7 @@ begin
 
   everything as far right as we can.
 
- 
+
 
   Finally, we have our source bit(s) shifted to the appropriate place,
 
@@ -461,19 +461,19 @@ begin
 
   had its CurrentBits zeroed out, remember?) and we're done.
 
- 
+
 
   Yeah, sure. "Simply". Duh.
 
   }
 
- 
+
 
   PbmpBufferR^ := ( PbmpBufferR^ and not CurrentBits ) or
 
   ( (PbmpBuffer^ and MaskBits) shr ShiftRightAmount shl CurrentBitIndex );
 
- 
+
 
   { Move the MaskBits over for the next iteration. }
 
@@ -511,7 +511,7 @@ begin
 
   end;
 
- 
+
 
   { If there's a partial byte, take care of it now. }
 
@@ -529,7 +529,7 @@ begin
 
   ( (PbmpBuffer^ and MaskBits) shr ShiftRightAmount shl CurrentBitIndex );
 
- 
+
 
   MaskBits := MaskBits shr BitCount;
 
@@ -559,7 +559,7 @@ begin
 
   end;
 
- 
+
 
   (*$IFDEF Win32*)
 
@@ -585,7 +585,7 @@ begin
 
   (*$ENDIF*)
 
- 
+
 
   if CurrentBits = LastMask then begin
 
@@ -623,7 +623,7 @@ begin
 
 end; { procedure NonIntegralByteRotate (* nested *) }
 
- 
+
 
 procedure IntegralByteRotate; (* nested *)
 
@@ -637,7 +637,7 @@ var
 
   (*$ENDIF*)
 
- 
+
 
 begin
 
@@ -653,7 +653,7 @@ begin
 
   (*$ENDIF*)
 
- 
+
 
   { Here's the meat. Loop through the pixels and rotate appropriately. }
 
@@ -713,7 +713,7 @@ begin
 
 end;
 
- 
+
 
 { This is the body of procedure RotateBitmap90DegreesCounterClockwise. }
 
@@ -721,11 +721,11 @@ begin
 
   { Don't *ever* call GetDIBSizes! It screws up your bitmap. }
 
- 
+
 
   MemoryStream := TMemoryStream.Create;
 
- 
+
 
   {
 
@@ -739,19 +739,19 @@ begin
 
   }
 
- 
+
 
   { An undocumented method. Nice to have around, though. }
 
   ABitmap.SaveToStream(MemoryStream);
 
- 
+
 
   { Don't need you anymore. We'll make a new one when the time comes. }
 
   ABitmap.Free;
 
- 
+
 
   bmpBuffer := MemoryStream.Memory;
 
@@ -759,7 +759,7 @@ begin
 
   BitmapOffset := PBitmapFileHeader(bmpBuffer)^.bfOffBits;
 
- 
+
 
   { Set PbmpInfoR to point to the source bitmap's info header. }
 
@@ -777,7 +777,7 @@ begin
 
   PbmpInfoR := PBitmapInfoHeader(bmpBuffer);
 
- 
+
 
   { Set bmpBuffer and PbmpBuffer to point to the original bitmap bits. }
 
@@ -795,7 +795,7 @@ begin
 
   PbmpBuffer := bmpBuffer;
 
- 
+
 
   {
 
@@ -817,7 +817,7 @@ begin
 
   { ShowMessage('BitCount := ' + IntToStr(BitCount)); }
 
- 
+
 
   { ScanLines are DWORD aligned. }
 
@@ -825,7 +825,7 @@ begin
 
   BytesPerScanLineR := ((((biHeight * BitCount) + 31) div 32) * SizeOf(DWORD));
 
- 
+
 
   AtLeastEightBitColor := BitCount >= BitsPerByte;
 
@@ -891,7 +891,7 @@ begin
 
   end; { if AtLeastEightBitColor then }
 
- 
+
 
   { The TMemoryStream that will hold the rotated bits. }
 
@@ -909,7 +909,7 @@ begin
 
   end; { with PbmpInfoR^ do }
 
- 
+
 
   { Copy the headers from the source bitmap. }
 
@@ -917,7 +917,7 @@ begin
 
   MemoryStreamR.CopyFrom(MemoryStream, BitmapOffset);
 
- 
+
 
   { Here's the buffer we're going to rotate. }
 
@@ -937,7 +937,7 @@ begin
 
   PbmpBufferR := bmpBufferR;
 
- 
+
 
   { Do it. }
 
@@ -949,13 +949,13 @@ begin
 
   NonIntegralByteRotate;
 
- 
+
 
   { Done with the source bits. }
 
   MemoryStream.Free;
 
- 
+
 
   { Now set PbmpInfoR to point to the rotated bitmap's info header. }
 
@@ -973,7 +973,7 @@ begin
 
   PbmpInfoR := PBitmapInfoHeader(PbmpBufferR);
 
- 
+
 
   { Swap the width and height of the rotated bitmap's info header. }
 
@@ -989,11 +989,11 @@ begin
 
   end;
 
- 
+
 
   ABitmap := TBitmap.Create;
 
- 
+
 
   { Spin back to the very beginning. }
 
@@ -1003,13 +1003,13 @@ begin
 
   ABitmap.LoadFromStream(MemoryStreamR);
 
- 
+
 
   MemoryStreamR.Free;
 
 end;
 
- 
+
 
 procedure RotateBitmap90DegreesClockwise(var ABitmap: TBitmap);
 
@@ -1017,7 +1017,7 @@ const
 
   BitsPerByte = 8;
 
- 
+
 
 var
 
@@ -1061,7 +1061,7 @@ var
 
   T: LongInt;
 
- 
+
 
 procedure NonIntegralByteRotate; (* nested *)
 
@@ -1093,7 +1093,7 @@ var
 
   ShiftRightAmount, ShiftRightStart: LongInt;
 
- 
+
 
 begin
 
@@ -1105,19 +1105,19 @@ begin
 
   BytesPerScanLineR * (PbmpInfoR^.biWidth - 1) ); (*$ENDIF*)
 
- 
+
 
   { Set up the indexing. }
 
   FirstIndex := BitsPerByte - BitCount;
 
- 
+
 
   {
 
   Set up the bit masks:
 
- 
+
 
   For a monochrome bitmap,
 
@@ -1125,7 +1125,7 @@ begin
 
   FirstMask := 10000000
 
- 
+
 
   For a 4-bit bitmap,
 
@@ -1133,7 +1133,7 @@ begin
 
   FirstMask := 11110000
 
- 
+
 
   We'll shift through these such that the CurrentBits and the MaskBits will go
 
@@ -1145,7 +1145,7 @@ begin
 
   11110000, 00001111
 
- 
+
 
   The CurrentBitIndex denotes how far over the right-most bit would need to
 
@@ -1165,23 +1165,23 @@ begin
 
   FirstMask := LastMask shl FirstIndex;
 
- 
+
 
   CurrentBits := FirstMask;
 
   CurrentBitIndex := FirstIndex;
 
- 
+
 
   ShiftRightStart := BitCount * (PixelsPerByte - 1);
 
- 
+
 
   { Here's the meat. Loop through the pixels and rotate appropriately. }
 
   { Remember that DIBs have their origins opposite from DDBs. }
 
- 
+
 
   { The Y counter holds the current row of the source bitmap. }
 
@@ -1189,7 +1189,7 @@ begin
 
   PbmpBufferR := PLastScanLine;
 
- 
+
 
   {
 
@@ -1237,7 +1237,7 @@ begin
 
   3rd-to-left bit, so we would take PbmpBufferR^ and 11011111.
 
- 
+
 
   Now consider our current source byte. For monochrome bitmaps, we're
 
@@ -1263,7 +1263,7 @@ begin
 
   everything as far right as we can.
 
- 
+
 
   Finally, we have our source bit(s) shifted to the appropriate place,
 
@@ -1271,19 +1271,19 @@ begin
 
   had its CurrentBits zeroed out, remember?) and we're done.
 
- 
+
 
   Yeah, sure. "Simply". Duh.
 
   }
 
- 
+
 
   PbmpBufferR^ := ( PbmpBufferR^ and not CurrentBits ) or
 
   ( (PbmpBuffer^ and MaskBits) shr ShiftRightAmount shl CurrentBitIndex );
 
- 
+
 
   { Move the MaskBits over for the next iteration. }
 
@@ -1319,7 +1319,7 @@ begin
 
   end;
 
- 
+
 
   { If there's a partial byte, take care of it now. }
 
@@ -1337,7 +1337,7 @@ begin
 
   ( (PbmpBuffer^ and MaskBits) shr ShiftRightAmount shl CurrentBitIndex );
 
- 
+
 
   MaskBits := MaskBits shr BitCount;
 
@@ -1367,7 +1367,7 @@ begin
 
   end;
 
- 
+
 
   { Skip the padding. }
 
@@ -1381,7 +1381,7 @@ begin
 
   (*$ENDIF*)
 
- 
+
 
   if CurrentBits = LastMask then begin
 
@@ -1419,7 +1419,7 @@ begin
 
 end; { procedure NonIntegralByteRotate (* nested *) }
 
- 
+
 
 procedure IntegralByteRotate; (* nested *)
 
@@ -1433,7 +1433,7 @@ var
 
   (*$ENDIF*)
 
- 
+
 
 begin
 
@@ -1449,7 +1449,7 @@ begin
 
   (*$ENDIF*)
 
- 
+
 
   { Here's the meat. Loop through the pixels and rotate appropriately. }
 
@@ -1509,7 +1509,7 @@ begin
 
 end;
 
- 
+
 
 { This is the body of procedure RotateBitmap90DegreesCounterClockwise. }
 
@@ -1517,11 +1517,11 @@ begin
 
   { Don't *ever* call GetDIBSizes! It screws up your bitmap. }
 
- 
+
 
   MemoryStream := TMemoryStream.Create;
 
- 
+
 
   {
 
@@ -1535,19 +1535,19 @@ begin
 
   }
 
- 
+
 
   { An undocumented method. Nice to have around, though. }
 
   ABitmap.SaveToStream(MemoryStream);
 
- 
+
 
   { Don't need you anymore. We'll make a new one when the time comes. }
 
   ABitmap.Free;
 
- 
+
 
   bmpBuffer := MemoryStream.Memory;
 
@@ -1555,7 +1555,7 @@ begin
 
   BitmapOffset := PBitmapFileHeader(bmpBuffer)^.bfOffBits;
 
- 
+
 
   { Set PbmpInfoR to point to the source bitmap's info header. }
 
@@ -1573,7 +1573,7 @@ begin
 
   PbmpInfoR := PBitmapInfoHeader(bmpBuffer);
 
- 
+
 
   { Set bmpBuffer and PbmpBuffer to point to the original bitmap bits. }
 
@@ -1591,7 +1591,7 @@ begin
 
   PbmpBuffer := bmpBuffer;
 
- 
+
 
   {
 
@@ -1613,7 +1613,7 @@ begin
 
   { ShowMessage('BitCount := ' + IntToStr(BitCount)); }
 
- 
+
 
   { ScanLines are DWORD aligned. }
 
@@ -1621,7 +1621,7 @@ begin
 
   BytesPerScanLineR := ((((biHeight * BitCount) + 31) div 32) * SizeOf(DWORD));
 
- 
+
 
   AtLeastEightBitColor := BitCount >= BitsPerByte;
 
@@ -1685,7 +1685,7 @@ begin
 
   end; { if AtLeastEightBitColor then }
 
- 
+
 
   { The TMemoryStream that will hold the rotated bits. }
 
@@ -1703,7 +1703,7 @@ begin
 
   end; { with PbmpInfoR^ do }
 
- 
+
 
   { Copy the headers from the source bitmap. }
 
@@ -1711,7 +1711,7 @@ begin
 
   MemoryStreamR.CopyFrom(MemoryStream, BitmapOffset);
 
- 
+
 
   { Here's the buffer we're going to rotate. }
 
@@ -1731,7 +1731,7 @@ begin
 
   PbmpBufferR := bmpBufferR;
 
- 
+
 
   { Do it. }
 
@@ -1743,13 +1743,13 @@ begin
 
   NonIntegralByteRotate;
 
- 
+
 
   { Done with the source bits. }
 
   MemoryStream.Free;
 
- 
+
 
   { Now set PbmpInfoR to point to the rotated bitmap's info header. }
 
@@ -1767,7 +1767,7 @@ begin
 
   PbmpInfoR := PBitmapInfoHeader(PbmpBufferR);
 
- 
+
 
   { Swap the width and height of the rotated bitmap's info header. }
 
@@ -1783,11 +1783,11 @@ begin
 
   end;
 
- 
+
 
   ABitmap := TBitmap.Create;
 
- 
+
 
   { Spin back to the very beginning. }
 
@@ -1797,13 +1797,13 @@ begin
 
   ABitmap.LoadFromStream(MemoryStreamR);
 
- 
+
 
   MemoryStreamR.Free;
 
 end;
 
- 
+
 
 procedure RotateBitmap180Degrees(var ABitmap: TBitmap);
 

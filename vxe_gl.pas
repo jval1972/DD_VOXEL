@@ -115,7 +115,7 @@ end;
 
 //
 // JVAL
-//  Create the palette texture, 512x512 
+//  Create the palette texture, 512x512
 //
 type
   PLongWordArray = ^TLongWordArray;

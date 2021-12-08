@@ -109,15 +109,15 @@ type
   public
 
     property OrgName: tbtString read FOrgName write FOrgName;
-	
+
     property Name: tbtString read FName write SetName;
 
     property NameHash: Longint read FNameHash;
-	
+
     property Decl: TPSParametersDecl read FDecl;
-	
+
     property ExportName: Boolean read FExportName write FExportName;
-	
+
     property ImportDecl: tbtString read FImportDecl write FImportDecl;
 
 
@@ -1137,29 +1137,29 @@ type
     function Compile(const s: tbtString): Boolean;
 
     function GetOutput(var s: tbtString): Boolean;
-	
+
     function GetDebugOutput(var s: tbtString): Boolean;
 
     procedure Clear;
 
     constructor Create;
-	
+
     destructor Destroy; override;
 
     property MsgCount: Longint read GetMsgCount;
-	
+
     property Msg[l: Longint]: TPSPascalCompilerMessage read GetMsg;
 
     property OnTranslateLineInfo: TPSOnTranslateLineInfoProc read FOnTranslateLineInfo write FOnTranslateLineInfo;
 
     property OnUses: TPSOnUses read FOnUses write FOnUses;
-	
+
     property OnExportCheck: TPSOnExportCheck read FOnExportCheck write FOnExportCheck;
-	
+
     property OnWriteLine: TPSOnWriteLineEvent read FOnWriteLine write FOnWriteLine;
 
     property OnExternalProc: TPSOnExternalProc read FOnExternalProc write FOnExternalProc;
-	
+
     property OnUseVariable: TPSOnUseVariable read FOnUseVariable write FOnUseVariable;
 
     property OnBeforeOutput: TPSOnNotify read FOnBeforeOutput write FOnBeforeOutput;
@@ -1169,13 +1169,13 @@ type
     property OnFunctionStart: TPSOnFunction read FOnFunctionStart write FOnFunctionStart;
 
     property OnFunctionEnd: TPSOnFunction read FOnFunctionEnd write FOnFunctionEnd;
-	
+
     property IsUnit: Boolean read FIsUnit;
-	
+
     property AllowNoBegin: Boolean read FAllowNoBegin write FAllowNoBegin;
-	
+
     property AllowUnit: Boolean read FAllowUnit write FAllowUnit;
-	
+
     property AllowNoEnd: Boolean read FAllowNoEnd write FAllowNoEnd;
 
     property AllowDuplicateRegister : Boolean read FAllowDuplicateRegister write FAllowDuplicateRegister;
@@ -1671,11 +1671,11 @@ type
   public
 
     function SelfType: TPSType; virtual;
-	
+
     constructor Create(Se: TPSPascalCompiler; TypeNo: TPSType);
 
     function ClassFunc_Find(const Name: tbtString; var Index: Cardinal): Boolean; virtual;
-	
+
     function ClassFunc_Call(Index: Cardinal; var ProcNo: Cardinal): Boolean; virtual;
 
     function Func_Find(const Name: tbtString; var Index: Cardinal): Boolean; virtual;
@@ -3095,7 +3095,7 @@ begin
     ((p1.BaseType = btChar) and (p2.BaseType = btChar)) or
     ((p1.BaseType = btSet) and (p2.BaseType = btSet)) or
     {$IFNDEF PS_NOWIDESTRING}
-    ((p1.BaseType = btChar) and (p2.BaseType = btWideChar)) or 
+    ((p1.BaseType = btChar) and (p2.BaseType = btWideChar)) or
     ((p1.BaseType = btWideChar) and (p2.BaseType = btChar)) or
     ((p1.BaseType = btWideChar) and (p2.BaseType = btWideChar)) or
     ((p1.BaseType = btWidestring) and (p2.BaseType = btChar)) or
@@ -5208,7 +5208,7 @@ begin
 {$IFNDEF PS_NOWIDESTRING}
           if Params[c].ExpectedType.BaseType = btWideChar then
             Params[c].ExpectedType := FindBaseType(btUnicodeString);
-{$ENDIF}            
+{$ENDIF}
         end else if (PType.BaseType = btArray) and (GetTypeNo(BlockInfo, Params[c].Val).BaseType = btArray) then
         begin
           if TPSArrayType(GetTypeNo(BlockInfo, Params[c].Val)).ArrayTypeNo <> TPSArrayType(PType).ArrayTypeNo then
@@ -6157,7 +6157,7 @@ function TPSPascalCompiler.ProcessSub(BlockInfo: TPSBlockInfo): Boolean;
       end;
       if TPSType(FarrType).BaseType = btVariant then
         FArrType := at2ut(FindAndAddType(self, '!OPENARRAYOFVARIANT', 'array of Variant'));
-      if TPSType(FarrType).BaseType <> btArray then 
+      if TPSType(FarrType).BaseType <> btArray then
         FArrType := at2ut(FindAndAddType(self, '!OPENARRAYOFVARIANT', 'array of Variant'));
 
       tmpp := AllocStackReg(FArrType);
@@ -8108,7 +8108,7 @@ function TPSPascalCompiler.ProcessSub(BlockInfo: TPSBlockInfo): Boolean;
                 result := nil;
                 exit;
               end;
-              if (GetTypeNo(BlockInfo, NewVar) = nil) or 
+              if (GetTypeNo(BlockInfo, NewVar) = nil) or
                 ((GetTypeNo(BlockInfo, NewVar).BaseType <> btClass) and
                 (GetTypeNo(BlockInfo, NewVar).BaseType <> btInterface) and
                 (GetTypeNo(BlockInfo, NewVar).BaseType <> btPChar) and
@@ -11000,7 +11000,7 @@ begin
                 break;
             end;
           end; {case}
-          
+
           if (BlockInfo.SubType = tifOneliner) or (BlockInfo.SubType = TOneLiner) then
             break;
 

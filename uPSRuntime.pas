@@ -8829,7 +8829,7 @@ begin
     8: // StrSet
       begin
         temp := NewTPSVariantIFC(Stack[Stack.Count -3], True);
-        if (temp.Dta = nil) or not (temp.aType.BaseType in [btString, btUnicodeString]) then 
+        if (temp.Dta = nil) or not (temp.aType.BaseType in [btString, btUnicodeString]) then
         begin
           Result := False;
           exit;
@@ -8876,7 +8876,7 @@ begin
       else if Stack.GetItem(Stack.Count -2)^.FType.BaseType = btWideString then
         Stack.SetWideString(-1, SysUtils.Trim(Stack.GetWideString(-2))) // Trim
       else
-{$ENDIF}      
+{$ENDIF}
         Stack.SetAnsiString(-1, AnsiString(SysUtils.Trim(String(Stack.GetAnsiString(-2)))));// Trim
     13: Stack.SetInt(-1, Length(Stack.GetAnsiString(-2))); // Length
     14: // SetLength
@@ -11349,7 +11349,7 @@ begin
  end;
  pp := fExceptionStack[fExceptionStack.Count-1];
  result := pp.ExceptionObject;
-end; 
+end;
 
 { TPSRuntimeClass }
 

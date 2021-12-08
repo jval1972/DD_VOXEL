@@ -176,7 +176,7 @@ procedure TSrinkHeightmapForm.SetSample(const asample: TBitmap);
 begin
   if asample = nil then
     Exit;
-    
+
   sample.Canvas.StretchDraw(Rect(0, 0, 255, 255), asample);
   UpdateControls;
 end;
@@ -239,7 +239,7 @@ begin
     Caption := 'Shrink Heighmap'
   else if amode = shf_crop then
     Caption := 'Crop Heighmap';
-    
+
   UpdateControls;
 end;
 

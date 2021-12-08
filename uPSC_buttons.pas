@@ -8,7 +8,7 @@ uses
 {
   Will register files from:
     Buttons
- 
+
   Requires
       STD, classes, controls and graphics and StdCtrls
 }

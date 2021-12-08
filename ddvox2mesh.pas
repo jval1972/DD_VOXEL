@@ -1,7 +1,7 @@
 //------------------------------------------------------------------------------
 //
 //  DD_VOXEL: DelphiDoom Voxel Editor
-//  Copyright (C) 2013-2018 by Jim Valavanis
+//  Copyright (C) 2013-2021 by Jim Valavanis
 //
 //  This program is free software; you can redistribute it and/or
 //  modify it under the terms of the GNU General Public License
@@ -19,7 +19,7 @@
 //  02111-1307, USA.
 //
 // DESCRIPTION:
-//  DDVOX to DDMESH 
+//  DDVOX to DDMESH
 //
 //------------------------------------------------------------------------------
 //  E-Mail: jimmyvalavanis@yahoo.gr

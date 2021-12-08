@@ -1,4 +1,4 @@
- 
+
 Unit uPSR_menus;
 {$I PascalScript.inc}
 Interface
@@ -303,7 +303,7 @@ begin
   S.RegisterDelphiFunction(@NEWITEM, 'NewItem', cdRegister);
   S.RegisterDelphiFunction(@NEWLINE, 'NewLine', cdRegister);
 	S.RegisterDelphiFunction(@DRAWMENUITEM, 'DrawMenuItem', cdRegister);
-{$ENDIF}	
+{$ENDIF}
 end;
 
 {$IFNDEF FPC}
@@ -356,7 +356,7 @@ begin
 		RegisterMethod(@TMAINMENU.GETOLE2ACCELERATORTABLE, 'GetOle2AcceleratorTable');
 		RegisterMethod(@TMAINMENU.SETOLE2MENUHANDLE, 'SetOle2MenuHandle');
 		RegisterPropertyHelper(@TMAINMENUAUTOMERGE_R,@TMAINMENUAUTOMERGE_W,'AutoMerge');
-{$ENDIF}		
+{$ENDIF}
 	end;
 end;
 
