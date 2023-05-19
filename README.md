@@ -30,9 +30,9 @@ Advanced scripting (PascalScript)
 
 ## Screenshots
 
-![Screenshot 1](https://i.postimg.cc/X78cJ2dV/lavarock1.jpg "Screenshot 1")
+![Screenshot 1](https://i.postimg.cc/j2szrH7s/lavarock1.jpg "Screenshot 1")
 
-![Screenshot 2](https://i.postimg.cc/NFRDpBKT/animals.jpg "Screenshot 2")
+![Screenshot 2](https://i.postimg.cc/C5mbMRGb/animals.jpg "Screenshot 2")
 
-![Screenshot 3](https://i.postimg.cc/1XGyrPJv/runmacro.png "Screenshot 3")
+![Screenshot 3](https://i.postimg.cc/DZQqDjmj/runmacro.png "Screenshot 3")
 
